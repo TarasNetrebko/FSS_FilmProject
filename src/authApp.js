@@ -43,6 +43,7 @@ function authModal() {
         .then((userCredential) => {
         // Signed in 
             const user = userCredential.user;
+            console.log(user);
             alert(`User: ${username} created!`);
     
         })
