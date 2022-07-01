@@ -3,9 +3,13 @@ import { getDatabase, set, ref, update } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
 import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
+import Notiflix from 'notiflix';
 const signInBtn = document.querySelector("#signInBtn");
 const logInBtn = document.querySelector("#logInBtn");
-const logOutBtn = document.querySelector("#logOutBtn")
+const logOutBtn = document.querySelector("#logOutBtn");
+
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ",
@@ -20,6 +24,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
+
+window.addEventListener("DOMContentLoaded", loadedContentCheck);
+
+function loadedContentCheck() {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+                logInBtn.disabled = true;
+                logOutBtn.disabled = false;
+        } else {
+                logInBtn.disabled = false;
+                logOutBtn.disabled = true;
+        }
+    })
+}
+
 
 signInBtn.addEventListener("click", signInModal);
 logInBtn.addEventListener("click", logInModal);
@@ -41,6 +60,7 @@ function signInModal() {
     signInForm.addEventListener("submit", createNewUser);
 
     function createNewUser(e) {
+        e.preventDefault();
         const username = document.querySelector("#username").value;
         const email = document.querySelector("#email").value;
         const password = document.querySelector("#password").value;
@@ -49,16 +69,18 @@ function signInModal() {
         // Signed in 
             const user = userCredential.user;
             set(ref(database, 'users/' + user.uid), {
-                username: username,
+                displayName: username,
                 email: email
             })
-            alert('User created!');
+            signInForm.reset();
+            instance.close()
+            Notiflix.Notify.success(`User: ${user.displayName} created!`);
     
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            alert('smth wrong!');
+            Notiflix.Notify.failure('smth wrong!');
         });
         
 }
@@ -87,47 +109,54 @@ function logInModal() {
     logInForm.addEventListener("submit", authUser);
 
     function authUser(e) {
+        e.preventDefault();
         const email = document.querySelector("#email").value;
         const password = document.querySelector("#password").value;        
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-        // Signed in 
-            const user = userCredential.user;
-            const currDate = new Date();
-        update(ref(database, 'users/' + user.uid), {
-            last_login: currDate,
-        })
-            alert('user loged in!');
-        })
-        .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        });
-    }
-    // const user = auth.currentUser;
-        onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const uid = user.uid;
-            console.log(user.displayName);
-        } else {
-            // User is signed out
-        }
-    });
-    document.querySelector("body").addEventListener("keydown", closeModal);
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    const currDate = new Date();
+                    // set(ref(database, 'users/' + user.uid), {
+                    //     online: true,
+                    // })
+                    logInForm.reset();
+                        logInBtn.disabled = true;
+                        logOutBtn.disabled = false;
+                    update(ref(database, 'users/' + user.uid), {
+                        last_login: currDate,
+                        online: true,
+
+                    })
+                        instance.close()
+                        Notiflix.Notify.success(`User: ${auth.currentUser.displayName} loged in!`)
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                    });
+            
+        document.querySelector("body").addEventListener("keydown", closeModal);
         function closeModal(e) {
             if (e.key === "Escape") {
                 instance.close()
                 gallery.removeEventListener("keydown", closeModal);
                 gallery.removeEventListener("click", signInModal);
+            }
         }
     }
 }
 
-function logOut() {
-    signOut(auth).then(() => {
-  // Sign-out successful.
-    }).catch((error) => {
-  // An error happened.
-        alert('User still there or smth wrong!');
-    });
+function logOut() {    
+            update(ref(database, 'users/' + auth.currentUser.uid), {
+                online: false,
+            });
+            signOut(auth).then(() => {
+                logInBtn.disabled = false;
+                logOutBtn.disabled = true; 
+            // Sign-out successful.
+            }).catch((error) => {
+            // An error happened.
+            });
+    Notiflix.Notify.info(`User: ${auth.currentUser.displayName} loged out!`);
 }
