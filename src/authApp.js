@@ -1,10 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, set, ref, update } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
 import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
 const signInBtn = document.querySelector("#signInBtn");
 const logInBtn = document.querySelector("#logInBtn");
+const logOutBtn = document.querySelector("#logOutBtn")
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ",
@@ -21,13 +22,14 @@ const database = getDatabase(app);
 const auth = getAuth();
 
 signInBtn.addEventListener("click", signInModal);
-logInBtn.addEventListener("click", logInModal)
+logInBtn.addEventListener("click", logInModal);
+logOutBtn.addEventListener("click", logOut);
 
 
 function signInModal() {   
     
         const instance = basicLightbox.create(`
-    <form action="">
+    <form action="" id="signInForm">
     <input id="username" type="text" name="username" placeholder="Your name">
       <input id="email" type="email" name="email" placeholder="Your email">
       <input id="password" type="password" name="password" placeholder="Your password">
@@ -35,8 +37,8 @@ function signInModal() {
     </form>
 `)      
     instance.show()
-    const submitSignInBtn = document.querySelector("#submitSignInBtn");
-    submitSignInBtn.addEventListener("click", createNewUser);
+    const signInForm = document.querySelector("#signInForm");
+    signInForm.addEventListener("submit", createNewUser);
 
     function createNewUser(e) {
         const username = document.querySelector("#username").value;
@@ -47,8 +49,8 @@ function signInModal() {
         // Signed in 
             const user = userCredential.user;
             set(ref(database, 'users/' + user.uid), {
-                username,
-                email,
+                username: username,
+                email: email
             })
             alert('User created!');
     
@@ -58,10 +60,11 @@ function signInModal() {
             const errorMessage = error.message;
             alert('smth wrong!');
         });
+        
 }
     document.querySelector("body").addEventListener("keydown", closeModal);
         function closeModal(e) {
-            if (e.key === "Escape") {
+            if (e.key === "Escape" || e === "submit") {
                 instance.close()
                 gallery.removeEventListener("keydown", closeModal);
                 gallery.removeEventListener("click", signInModal);
@@ -73,19 +76,19 @@ function logInModal() {
     
     
     const instance = basicLightbox.create(`
-    <form action="">
+    <form action="" id="logInForm">
       <input id="email" type="email" name="email" placeholder="Your email">
       <input id="password" type="password" name="password" placeholder="Your password">
       <button id="submitLogInBtn" type="submit">Confirm</button>
     </form>
 `)
     instance.show()
-    const submitLogInBtn = document.querySelector("#submitLogInBtn");
-    submitLogInBtn.addEventListener("click", authUser);
+    const logInForm = document.querySelector("#logInForm");
+    logInForm.addEventListener("submit", authUser);
 
-    function authUser() {
+    function authUser(e) {
         const email = document.querySelector("#email").value;
-        const password = document.querySelector("#password").value;
+        const password = document.querySelector("#password").value;        
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
         // Signed in 
@@ -101,6 +104,15 @@ function logInModal() {
         const errorMessage = error.message;
         });
     }
+    // const user = auth.currentUser;
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const uid = user.uid;
+            console.log(user.displayName);
+        } else {
+            // User is signed out
+        }
+    });
     document.querySelector("body").addEventListener("keydown", closeModal);
         function closeModal(e) {
             if (e.key === "Escape") {
@@ -109,4 +121,13 @@ function logInModal() {
                 gallery.removeEventListener("click", signInModal);
         }
     }
+}
+
+function logOut() {
+    signOut(auth).then(() => {
+  // Sign-out successful.
+    }).catch((error) => {
+  // An error happened.
+        alert('User still there or smth wrong!');
+    });
 }
