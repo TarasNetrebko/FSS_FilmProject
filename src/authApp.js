@@ -1,8 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, set, ref } from "firebase/database";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
-const authBtn = document.querySelector("#authBtn");
+import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
+const signInBtn = document.querySelector("#signInBtn");
+const logInBtn = document.querySelector("#logInBtn");
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ",
@@ -18,22 +20,23 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
 
-authBtn.addEventListener("click", authModal);
+signInBtn.addEventListener("click", signInModal);
+logInBtn.addEventListener("click", logInModal)
 
-function authModal() {
-    
+
+function signInModal() {   
     
         const instance = basicLightbox.create(`
     <form action="">
-    <input id="username" type="text" name="username" placeholder="Your ename">
+    <input id="username" type="text" name="username" placeholder="Your name">
       <input id="email" type="email" name="email" placeholder="Your email">
       <input id="password" type="password" name="password" placeholder="Your password">
-      <button id="submitBtn" type="submit">Confirm</button>
+      <button id="submitSignInBtn" type="submit">Confirm</button>
     </form>
 `)      
     instance.show()
-    const submitBtn = document.querySelector("#submitBtn");
-    submitBtn.addEventListener("click", createNewUser);
+    const submitSignInBtn = document.querySelector("#submitSignInBtn");
+    submitSignInBtn.addEventListener("click", createNewUser);
 
     function createNewUser(e) {
         const username = document.querySelector("#username").value;
@@ -43,8 +46,11 @@ function authModal() {
         .then((userCredential) => {
         // Signed in 
             const user = userCredential.user;
-            console.log(user);
-            alert(`User: ${username} created!`);
+            set(ref(database, 'users/' + user.uid), {
+                username,
+                email,
+            })
+            alert('User created!');
     
         })
         .catch((error) => {
@@ -58,8 +64,49 @@ function authModal() {
             if (e.key === "Escape") {
                 instance.close()
                 gallery.removeEventListener("keydown", closeModal);
-                gallery.removeEventListener("click", authModal);
+                gallery.removeEventListener("click", signInModal);
         }
     }
-}   
+}
+
+function logInModal() {
     
+    
+    const instance = basicLightbox.create(`
+    <form action="">
+      <input id="email" type="email" name="email" placeholder="Your email">
+      <input id="password" type="password" name="password" placeholder="Your password">
+      <button id="submitLogInBtn" type="submit">Confirm</button>
+    </form>
+`)
+    instance.show()
+    const submitLogInBtn = document.querySelector("#submitLogInBtn");
+    submitLogInBtn.addEventListener("click", authUser);
+
+    function authUser() {
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+        // Signed in 
+            const user = userCredential.user;
+            const currDate = new Date();
+        update(ref(database, 'users/' + user.uid), {
+            last_login: currDate,
+        })
+            alert('user loged in!');
+        })
+        .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        });
+    }
+    document.querySelector("body").addEventListener("keydown", closeModal);
+        function closeModal(e) {
+            if (e.key === "Escape") {
+                instance.close()
+                gallery.removeEventListener("keydown", closeModal);
+                gallery.removeEventListener("click", signInModal);
+        }
+    }
+}
