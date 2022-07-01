@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, set, ref, update } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAdditionalUserInfo } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
 import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
 import Notiflix from 'notiflix';
@@ -24,6 +24,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
+let userData;
 
 window.addEventListener("DOMContentLoaded", loadedContentCheck);
 
@@ -69,12 +70,12 @@ function signInModal() {
         // Signed in 
             const user = userCredential.user;
             set(ref(database, 'users/' + user.uid), {
+                email: email,
                 displayName: username,
-                email: email
             })
             signInForm.reset();
             instance.close()
-            Notiflix.Notify.success(`User: ${user.displayName} created!`);
+            Notiflix.Notify.success(`User: ${auth.currentUser.email} created!`);
     
         })
         .catch((error) => {
@@ -120,16 +121,17 @@ function logInModal() {
                     // set(ref(database, 'users/' + user.uid), {
                     //     online: true,
                     // })
+                    console.log(auth.currentUser);
                     logInForm.reset();
                         logInBtn.disabled = true;
-                        logOutBtn.disabled = false;
+                    logOutBtn.disabled = false;
                     update(ref(database, 'users/' + user.uid), {
                         last_login: currDate,
                         online: true,
 
                     })
                         instance.close()
-                        Notiflix.Notify.success(`User: ${auth.currentUser.displayName} loged in!`)
+                        Notiflix.Notify.success(`User: ${auth.currentUser.email} loged in!`)
                     })
                     .catch((error) => {
                         const errorCode = error.code;
@@ -158,5 +160,5 @@ function logOut() {
             }).catch((error) => {
             // An error happened.
             });
-    Notiflix.Notify.info(`User: ${auth.currentUser.displayName} loged out!`);
+    Notiflix.Notify.info(`User: ${auth.currentUser.email} loged out!`);
 }
