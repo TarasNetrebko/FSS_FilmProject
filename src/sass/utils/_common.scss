@@ -52,7 +52,7 @@ img {
   margin: 0 auto;
 
   @include mob {
-    width: 480px;
+    width: 320px;
   }
 
   @include tab {

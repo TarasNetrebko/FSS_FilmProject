@@ -1,7 +1,8 @@
 .header-home__container {
   padding-top: 44px;
-  padding-bottom: 44px;
+  padding-bottom: 92px;
   background-image: url(/src/images/header-home-480px.svg);
+  background-size: cover;
 
   @include tab {
     background-image: url(/src/images/header-home-768px.svg);
@@ -9,6 +10,22 @@
 
   @include desk {
     background-image: url(/src/images/header-home-1280px.svg);
+  }
+}
+
+.header-home-btn__container {
+  text-align: end;
+  margin-bottom: 8px;
+}
+
+.header-home-login__btn {
+  @include font(8px, 100, 1.14);
+  text-transform: uppercase;
+
+  color: var(--white-color);
+
+  &:hover {
+    color: var(--secondary-accent-color);
   }
 }
 
@@ -25,6 +42,10 @@
   text-transform: uppercase;
 
   color: var(--white-color);
+
+  &:hover {
+    color: var(--secondary-accent-color);
+  }
 }
 
 .header-home__btn--append {
@@ -40,6 +61,7 @@
 
 .header-home__input {
   min-width: 280px;
+  padding: 0px 0px 4px 0px;
 
   border: none;
   border-bottom: 1px solid var(--white-color);
@@ -52,10 +74,6 @@
 
 .header-home__input::placeholder {
   color: var(--white-color);
-}
-
-.header-home-btn__container {
-  text-align: center;
 }
 
 .header-home-svg__container {
