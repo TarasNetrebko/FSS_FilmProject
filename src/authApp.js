@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, set, ref } from "firebase/database";
+import { getDatabase, set, ref, update } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
 import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
