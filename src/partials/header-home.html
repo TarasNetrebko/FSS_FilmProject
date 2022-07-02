@@ -10,13 +10,22 @@
     </div>
 
     <nav class="nav-home">
-      <a href="">
-        <img class="img" src="./images/film.svg" alt="Home" />
-      </a>
+      <div>
+        <a class="nav-home__link" href="/src/index.html">
+          <svg class="nav-home__svg" width="24" heigth="24">
+            <use href="/src/images/icons.svg#film"></use>
+          </svg>
+        </a>
+        <a class="nav-home-logo__link" href="">Filmoteka</a>
+      </div>
 
       <div>
-        <button class="header-home__btn header-home__btn--append">Home</button>
-        <button class="header-home__btn">My library</button>
+        <a
+          class="nav-home__link nav-home__link--append nav-home__link--overlay"
+          href="/src/index.html"
+          >Home</a
+        >
+        <a class="nav-home__link" href="">My library</a>
       </div>
     </nav>
 

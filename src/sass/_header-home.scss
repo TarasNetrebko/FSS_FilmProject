@@ -24,7 +24,8 @@
 
   color: var(--white-color);
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: var(--secondary-accent-color);
   }
 }
@@ -37,20 +38,59 @@
   margin-bottom: 56px;
 }
 
-.header-home__btn {
+.nav-home__link {
   @include font(12px, 500, 1.17);
   text-transform: uppercase;
 
   color: var(--white-color);
 
-  &:hover {
+  position: relative;
+
+  &::after {
+    content: '';
+
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 3px;
+    opacity: 0;
+
+    background-color: var(--secondary-accent-color);
+  }
+
+  &:hover,
+  &:focus {
     color: var(--secondary-accent-color);
   }
 }
 
-.header-home__btn--append {
+.nav-home__link--overlay {
+  &::after {
+    content: '';
+
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 3px;
+    opacity: 1;
+
+    background-color: var(--secondary-accent-color);
+  }
+}
+
+.nav-home__link--append {
   margin-right: 40px;
 }
+
+.nav-home__svg {
+  width: 24px;
+  height: 24px;
+}
+
+// .nav-home-logo__link .is-hidden {
+// }
 
 .header-home-input__container {
   margin: 0 auto;
@@ -65,15 +105,21 @@
 
   border: none;
   border-bottom: 1px solid var(--white-color);
+  outline: none;
 
   @include font(14px, 400, 1.14);
 
   color: var(--white-color);
   background-color: transparent;
+
+  &:focus {
+    border-bottom: 1px solid var(--secondary-accent-color);
+  }
 }
 
 .header-home__input::placeholder {
   color: var(--white-color);
+  // font-size: 12px;
 }
 
 .header-home-svg__container {
@@ -85,4 +131,10 @@
 .header-home__svg {
   width: 12px;
   height: 12px;
+
+  fill: var(--secondary-accent-color);
+
+  // &:focus {
+  //   fill: var(--secondary-accent-color);
+  // }
 }
