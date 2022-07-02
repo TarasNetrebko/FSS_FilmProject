@@ -3,9 +3,12 @@
   padding-bottom: 92px;
   background-image: url(/src/images/header-home-480px.svg);
   background-size: cover;
+  background-origin: border-box;
 
   @include tab {
     background-image: url(/src/images/header-home-768px.svg);
+    padding-top: 40px;
+    padding-bottom: 80px;
   }
 
   @include desk {
@@ -36,6 +39,17 @@
   justify-content: space-between;
 
   margin-bottom: 56px;
+
+  @include tab {
+    margin-bottom: 40px;
+  }
+}
+
+.nav-home__container {
+  @include tab {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .nav-home__link {
@@ -89,8 +103,18 @@
   height: 24px;
 }
 
-// .nav-home-logo__link .is-hidden {
-// }
+.nav-home-logo__link {
+  @include tab {
+    @include font(30px, 500, 1.17);
+    color: var(--white-color);
+  }
+}
+
+.nav-home-logo__link--append {
+  @include tab {
+    margin-left: 8px;
+  }
+}
 
 .header-home-input__container {
   margin: 0 auto;
@@ -115,17 +139,24 @@
   &:focus {
     border-bottom: 1px solid var(--secondary-accent-color);
   }
+
+  @include tab {
+    min-width: 336px;
+  }
 }
 
 .header-home__input::placeholder {
   color: var(--white-color);
-  // font-size: 12px;
 }
 
 .header-home-svg__container {
   position: absolute;
   top: 0;
   left: 95%;
+
+  @include tab {
+    left: 115%;
+  }
 }
 
 .header-home__svg {
@@ -133,8 +164,4 @@
   height: 12px;
 
   fill: var(--secondary-accent-color);
-
-  // &:focus {
-  //   fill: var(--secondary-accent-color);
-  // }
 }
