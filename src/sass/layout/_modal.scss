@@ -2,6 +2,8 @@
   .modal {
     position: relative;
     width: 280px;
+    max-height: 100vh;
+    overflow-y:auto;
     z-index: 1;
     margin: auto;
     padding-top: 48px;
@@ -18,9 +20,9 @@
   }
 
   .modal__close {
-    position: absolute;
-    top: 30px;
-    right: 30px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
     transform: rotate(45deg);
     font-size: 30px;
     font-weight: 100;
@@ -122,6 +124,8 @@
     // height: 552px;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 40px 72px 40px 36px;
   }
 
@@ -129,7 +133,7 @@
     width: 264px;
     // height: 374px;
     height: auto;
-    margin-right: 68px;
+    // margin-right: 68px;
   }
 
   .modal__description {
@@ -140,17 +144,17 @@
 @media screen and (min-width: 1280px) {
   .modal {
     width: 806px;
-    // height: 552px;
+    height: 100vh;
     display: flex;
     flex-wrap: wrap;
-    padding: 40px 12px 40px 12px;
+    padding: 10px 12px 10px 12px;
   }
 
   .modal__img {
     width: 375px;
     // height: 374px;
     height: auto;
-    margin-right: 16px;
+    // margin-right: 16px;
   }
 
   .modal__description {
