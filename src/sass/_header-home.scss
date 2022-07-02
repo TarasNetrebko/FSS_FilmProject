@@ -1,0 +1,176 @@
+.header-home__container {
+  padding-top: 44px;
+  padding-bottom: 92px;
+  background-image: url(/src/images/header-home-480px.svg);
+  background-size: cover;
+  background-origin: border-box;
+
+  @include tab {
+    background-image: url(/src/images/header-home-768px.svg);
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+
+  @include desk {
+    background-image: url(/src/images/header-home-1280px.svg);
+  }
+}
+
+.header-home-btn__container {
+  text-align: end;
+  margin-bottom: 8px;
+}
+
+.header-home-login__btn {
+  @include font(8px, 100, 1.14);
+  text-transform: uppercase;
+
+  color: var(--white-color);
+
+  &:hover,
+  &:focus {
+    color: var(--secondary-accent-color);
+  }
+}
+
+.nav-home {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 56px;
+
+  @include tab {
+    margin-bottom: 40px;
+  }
+}
+
+.nav-home__container {
+  @include tab {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.nav-home__link {
+  @include font(12px, 500, 1.17);
+  text-transform: uppercase;
+
+  color: var(--white-color);
+
+  position: relative;
+
+  &::after {
+    content: '';
+
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 3px;
+    opacity: 0;
+
+    background-color: var(--secondary-accent-color);
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--secondary-accent-color);
+  }
+}
+
+.nav-home__link--overlay {
+  &::after {
+    content: '';
+
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 3px;
+    opacity: 1;
+
+    background-color: var(--secondary-accent-color);
+  }
+}
+
+.nav-home__link--append {
+  margin-right: 40px;
+}
+
+.nav-home__svg {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-home-logo__link {
+  @include tab {
+    @include font(30px, 500, 1.17);
+    color: var(--white-color);
+
+    &:hover,
+    &:focus {
+      color: var(--secondary-accent-color);
+    }
+  }
+}
+
+.nav-home-logo__link--append {
+  @include tab {
+    margin-left: 10px;
+  }
+
+  @include desk {
+    margin-left: 12px;
+  }
+}
+
+.header-home-input__container {
+  margin: 0 auto;
+  width: 280px;
+
+  position: relative;
+
+  @include tab {
+    min-width: 336px;
+  }
+
+  @include desk {
+    min-width: 394px;
+  }
+}
+
+.header-home__input {
+  width: 100%;
+  padding: 0px 0px 4px 0px;
+
+  border: none;
+  border-bottom: 1px solid var(--white-color);
+  outline: none;
+
+  @include font(14px, 400, 1.14);
+
+  color: var(--white-color);
+  background-color: transparent;
+
+  &:focus {
+    border-bottom: 1px solid var(--secondary-accent-color);
+  }
+}
+
+.header-home__input::placeholder {
+  color: var(--white-color);
+}
+
+.header-home-svg__container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.header-home__svg {
+  width: 12px;
+  height: 12px;
+
+  fill: var(--secondary-accent-color);
+}
