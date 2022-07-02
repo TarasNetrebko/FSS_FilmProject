@@ -107,12 +107,21 @@
   @include tab {
     @include font(30px, 500, 1.17);
     color: var(--white-color);
+
+    &:hover,
+    &:focus {
+      color: var(--secondary-accent-color);
+    }
   }
 }
 
 .nav-home-logo__link--append {
   @include tab {
-    margin-left: 8px;
+    margin-left: 10px;
+  }
+
+  @include desk {
+    margin-left: 12px;
   }
 }
 
@@ -121,10 +130,18 @@
   width: 280px;
 
   position: relative;
+
+  @include tab {
+    min-width: 336px;
+  }
+
+  @include desk {
+    min-width: 394px;
+  }
 }
 
 .header-home__input {
-  min-width: 280px;
+  width: 100%;
   padding: 0px 0px 4px 0px;
 
   border: none;
@@ -139,10 +156,6 @@
   &:focus {
     border-bottom: 1px solid var(--secondary-accent-color);
   }
-
-  @include tab {
-    min-width: 336px;
-  }
 }
 
 .header-home__input::placeholder {
@@ -152,11 +165,7 @@
 .header-home-svg__container {
   position: absolute;
   top: 0;
-  left: 95%;
-
-  @include tab {
-    left: 115%;
-  }
+  right: 0;
 }
 
 .header-home__svg {
