@@ -85,10 +85,9 @@ function renderMoviesCardsMarkup(obj) {
                     </article>`;
     })
     .join('');
-  document.querySelector('.container').insertAdjacentHTML('beforeend', markup);
+  document.querySelector('.container.main').insertAdjacentHTML('beforeend', markup);
   document.querySelectorAll('.card').forEach(el => {
     el.addEventListener('click', event => {
-      console.log(event.currentTarget.dataset.id);
       const movieId = event.currentTarget.dataset.id;
       getMovieInfo(movieId);
     });
@@ -98,7 +97,6 @@ function renderMoviesCardsMarkup(obj) {
 getPopularMovies();
 
 function createModal(data) {
-  console.log(data.data);
   const {
     poster_path,
     title,
@@ -163,9 +161,7 @@ function createModal(data) {
           instance.close;
         document.addEventListener('keyup', closeModal);
         function closeModal(event) {
-          console.log(event);
           if (event.key === 'Escape') {
-            console.log('Escape pressed!');
             instance.close();
             document.removeEventListener('keyup', closeModal);
           }
