@@ -41,7 +41,7 @@ function GenreString(GenreId) {
 }
 
 function getGenreById(obj) {
-  GenreArray = obj.data.genres;
+   GenreArray = obj.data.genres;
 }
 
 function getGenreList() {
@@ -60,8 +60,11 @@ function getMovieInfo(id) {
   const URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
   fetchFromBackend(URL, createModal);
 }
+async function startfilm(){
+await getGenreList();
+await getPopularMovies();
+};
 
-getGenreList();
 
 function renderMoviesCardsMarkup(obj) {
   const array = obj.data.results;
@@ -95,7 +98,8 @@ function renderMoviesCardsMarkup(obj) {
   });
 }
 
-getPopularMovies();
+
+startfilm();
 
 function createModal(data) {
   console.log(data.data);
