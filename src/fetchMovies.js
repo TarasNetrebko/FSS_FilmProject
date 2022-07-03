@@ -1,49 +1,73 @@
 import axios from 'axios';
-import * as basicLightbox from 'basiclightbox'
+import * as basicLightbox from 'basiclightbox';
 
-
-const API_KEY = "641afe219016a353adafbc0b4f44c0fe"
+const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 
 function fetchFromBackend(url, callback) {
-  axios.get(url)
-  .then(async function (response) {
-    // handle success
-    callback(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
+  axios
+    .get(url)
+    .then(async function (response) {
+      // handle success
+      callback(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+}
+
+function GenreString(GenreId) {
+  if (GenreArray) {
+    let GenreList = '';
+    let countList = 0;
+    for (const Genre of GenreArray) {
+      if (GenreId.includes(Genre.id)) {
+        if (GenreList.length > 0) {
+          GenreList = GenreList + ', ' + Genre.name;
+        } else {
+          GenreList = Genre.name;
+        }
+        countList += 1;
+        if (countList === 3) {
+          return GenreList;
+        }
+      }
+    }
+    return GenreList;
+  }
+}
+
+function getGenreById(obj) {
+  GenreArray = obj.data.genres;
+}
+
+function getGenreList() {
+  const URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+  fetchFromBackend(URL, getGenreById);
 }
 
 function getPopularMovies() {
   const URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
-  fetchFromBackend(URL, renderMoviesCardsMarkup)
+  fetchFromBackend(URL, renderMoviesCardsMarkup);
 }
 function searchMoviesByWord(page) {
   const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=${page}&include_adult=false&query=${query}`;
-
 }
 function getMovieInfo(id) {
   const URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
-  fetchFromBackend(URL, createModal)
-  
+  fetchFromBackend(URL, createModal);
 }
+
+getGenreList();
 
 function renderMoviesCardsMarkup(obj) {
   const array = obj.data.results;
   const markup = array
-    .map(
-      ({
-        id,
-        poster_path,
-        genre_ids,
-        original_title,
-        release_date,
-      }) => {return `<article class="card" data-id="${id}">
+    .map(({ id, poster_path, genre_ids, original_title, release_date }) => {
+      return `<article class="card" data-id="${id}">
                         <img
                           class="card__image"
                           loading="lazy"
@@ -52,25 +76,43 @@ function renderMoviesCardsMarkup(obj) {
                         />
                       <p class="card__title">${original_title}</p>
                       <p class="card__genres">
-                        ${genre_ids} | <span class="card__year">${release_date.split("-")[0]}</span>
+                        ${GenreString(
+                          genre_ids
+                        )} | <span class="card__year">${
+        release_date.split('-')[0]
+      }</span>
                       </p>
-                    </article>`;}).join('');
+                    </article>`;
+    })
+    .join('');
   document.querySelector('.container').insertAdjacentHTML('beforeend', markup);
-  document.querySelectorAll('.card').forEach((el) => {
-    el.addEventListener("click", event => {
+  document.querySelectorAll('.card').forEach(el => {
+    el.addEventListener('click', event => {
       console.log(event.currentTarget.dataset.id);
       const movieId = event.currentTarget.dataset.id;
       getMovieInfo(movieId);
-    })
-  })
+    });
+  });
 }
 
-getPopularMovies()
+getPopularMovies();
 
 function createModal(data) {
   console.log(data.data);
-  const { poster_path, title, genres, id, original_title, overview, popularity, release_date, vote_average, vote_count} = data.data;
-  const instance = basicLightbox.create(`<div class="modal">
+  const {
+    poster_path,
+    title,
+    genres,
+    id,
+    original_title,
+    overview,
+    popularity,
+    release_date,
+    vote_average,
+    vote_count,
+  } = data.data;
+  const instance = basicLightbox.create(
+    `<div class="modal">
       <span class="modal__close">+</span>
       <img
         class="modal__img"
@@ -96,7 +138,9 @@ function createModal(data) {
             </tr>
             <tr>
               <td>Genre</td>
-              <td class="modal__genre">${genres.map(el => `${el.name}`).join(", ")}</td>
+              <td class="modal__genre">${genres
+                .map(el => `${el.name}`)
+                .join(', ')}</td>
             </tr>
           </tbody>
         </table>
@@ -112,21 +156,23 @@ function createModal(data) {
         </div>
       </div>
     </div>
-`, {
-    onShow: (instance) => {
-    instance.element().querySelector('.modal__close').onclick = instance.close
-    document.addEventListener("keyup", closeModal);
+`,
+    {
+      onShow: instance => {
+        instance.element().querySelector('.modal__close').onclick =
+          instance.close;
+        document.addEventListener('keyup', closeModal);
         function closeModal(event) {
-      console.log(event);
-          if (event.key === "Escape") {
-        console.log("Escape pressed!");
+          console.log(event);
+          if (event.key === 'Escape') {
+            console.log('Escape pressed!');
             instance.close();
-            document.removeEventListener("keyup", closeModal);
-      }
-      
+            document.removeEventListener('keyup', closeModal);
+          }
+        }
+      },
     }
-    }
-})
+  );
 
-instance.show()
+  instance.show();
 }
