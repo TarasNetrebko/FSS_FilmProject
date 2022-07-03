@@ -1,44 +1,7 @@
-// class Paginator {
-
-//     constructor(page, pageSize, dataLength) {
-//         this.page = page;
-//         this.pageSize = pageSize;
-//         this.dataLength = dataLength;
-//     }
-
-
-
-//     get pageCount() {
-//         return Math.ceil(this.dataLength / this.pageSize);
-//     }
-//     get pages() {
-//         const pages = [];
-//         for (let i = 1; i <= this.pageCount; i++) {
-//             pages.push(i);
-//         }
-//         return pages;
-//     }
-//     get prev() {
-//         return this.page - 1;
-//     }
-//     get next() {
-//         return this.page + 1;
-//     }
-//     get hasPrev() {
-//         return this.prev > 0;
-//     }
-//     get hasNext() {
-//         return this.next <= this.pageCount;
-//     }
-// }
-
 const dataLength = 1000;
 var params = new URLSearchParams(window.location.search);
-console.log(params.get('page'));
-let currentPage = parseInt(params.get('page'));
-console.log(location);
-console.log(currentPage);
 
+let currentPage = parseInt(params.get('page') ?? 1);
 
 const pageSize = 20;
 const pageCount = Math.ceil(dataLength / pageSize);
@@ -49,18 +12,20 @@ const divPagination = document.querySelector('.pagination');
 
 function renderPagination(currentPage) {
     const lastPage = pageCount;
-    console.log("current", currentPage);
-    console.log(lastPage);
-    const prevPage = currentPage - 2;
-    console.log(prevPage);
-    const nextPage = currentPage + 2;
-    console.log(nextPage);
+
+    const prevPage = (currentPage - 2) > 0 ? (currentPage - 2) : 1;
+
+    let nextPage = (currentPage + 2 > lastPage) ? lastPage : (currentPage + 2);
+
 
     if (currentPage > 1) {
         divPagination.insertAdjacentHTML('beforeend', getBtnPrev());
-
     }
-    divPagination.insertAdjacentHTML('beforeend', getBtnOne());
+
+    if (currentPage > 3) {
+        divPagination.insertAdjacentHTML('beforeend', getBtnOne());
+    }
+
 
     if (5 <= currentPage) {
         divPagination.insertAdjacentHTML('beforeend', getBtnDot());
@@ -80,18 +45,19 @@ function renderPagination(currentPage) {
 
     }
 
-
-
     if (currentPage < (lastPage - 4)) {
         divPagination.insertAdjacentHTML('beforeend', getBtnDot());
+    }
 
+    if (currentPage < (lastPage - 2)) {
+        divPagination.insertAdjacentHTML('beforeend', getBtnLast());
     }
     if (currentPage < pageCount) {
-        divPagination.insertAdjacentHTML('beforeend', getBtnLast());
         divPagination.insertAdjacentHTML('beforeend', getBtnNext());
-
     }
-} function getBtnDefault(currentPage) {
+}
+
+function getBtnDefault(currentPage) {
     return `<li class="pagination__button" >
         <a class="pagination__button-link" href="?page=${currentPage}">${currentPage}</a>
     </li>`;
