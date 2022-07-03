@@ -42,7 +42,7 @@ function GenreString(GenreId) {
 }
 
 function getGenreById(obj) {
-   GenreArray = obj.data.genres;
+  GenreArray = obj.data.genres;
 }
 
 function getGenreList() {
@@ -61,11 +61,10 @@ function getMovieInfo(id) {
   const URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
   fetchFromBackend(URL, createModal);
 }
-async function startfilm(){
-await getGenreList();
-await getPopularMovies();
-};
-
+async function startfilm() {
+  await getGenreList();
+  await getPopularMovies();
+}
 
 function renderMoviesCardsMarkup(obj) {
   const array = obj.data.results;
@@ -80,16 +79,14 @@ function renderMoviesCardsMarkup(obj) {
                         />
                       <p class="card__title">${original_title}</p>
                       <p class="card__genres">
-                        ${GenreString(
-                          genre_ids
-                        )} | <span class="card__year">${
+                        ${GenreString(genre_ids)} | <span class="card__year">${
         release_date.split('-')[0]
       }</span>
                       </p>
                     </article>`;
     })
     .join('');
-  document.querySelector('.container.main').insertAdjacentHTML('beforeend', markup);
+  document.querySelector('.main').insertAdjacentHTML('beforeend', markup);
   document.querySelectorAll('.card').forEach(el => {
     el.addEventListener('click', event => {
       const movieId = event.currentTarget.dataset.id;
@@ -97,7 +94,6 @@ function renderMoviesCardsMarkup(obj) {
     });
   });
 }
-
 
 startfilm();
 
