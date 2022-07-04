@@ -6,6 +6,8 @@ const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
 
 function fetchFromBackend(url, callback) {
+ let loader = document.querySelector(".preloader");
+ loader.classList.remove("hidden");
   axios
     .get(url)
     .then(async function (response) {
@@ -18,6 +20,7 @@ function fetchFromBackend(url, callback) {
     })
     .then(function () {
       // always executed
+      loader.classList.add("hidden");
     });
 }
 
