@@ -1,0 +1,72 @@
+.pagination {
+    list-style: none;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    margin-bottom: 10px;// поки що
+
+
+}
+
+.pagination__button {
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    /* border: none; */
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.pagination__button:not(:last-child) {
+    margin-right: 3px;
+}
+
+.pagination__button-link {
+    text-decoration: none;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.pagination__active-btn {
+    background: #ff6b08;
+    color: #ffffff;
+}
+
+.pagination__arrow-btn {
+    background: #f7f7f7;
+}
+
+/* span {
+  background-image: url("/src/img/arrow-left.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  fill: #000000;
+} */
+.pagination__icon-arrow {
+    width: 14px;
+    height: 16px;
+    fill: #000000;
+}
+
+/* .arrow {
+  width: 16px;
+  height: 16px;
+  fill: #000000;
+} */

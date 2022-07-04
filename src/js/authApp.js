@@ -162,3 +162,15 @@ function logOut() {
             });
     Notiflix.Notify.info(`User: ${auth.currentUser.email} loged out!`);
 }
+
+// ------------------
+// QUEUE & WATCHED
+// ------------------
+const queueBtn = document.querySelector("#queueBtn");
+const watchedBtn = document.querySelector("#watchedBtn");
+queueBtn.addEventListener("click", addFilmToQueue);
+watchedBtn.addEventListener("click", addFilmToWatched);
+
+function addFilmToQueue() {
+    console.log(filmInfo.id);
+}
