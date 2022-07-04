@@ -3,27 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>Filmoteka</title>
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+    <link rel="shortcut icon" href="./images/film.ico" type="image/x-icon" />
   </head>
   <body>
-    <!-- <button id="signInBtn" type="button">Sign In</button>
-    <button id="logInBtn" type="button">Log In</button> -->
-    <button id="logOutBtn" type="button">Log Out</button>
+      <include src="./partials/header-home.html"></include>
+      <!-- Main  -->
+      <main class="main container">
+        <ul class="pagination js-pagination-block"></ul>
+        <div class="gallery"></div>
+      </main>
 
-    <include src="./partials/header-home.html"></include>
-    <!-- Main  -->
-    <main class="main">
-      <div class="container"></div>
-    </main>
-    <!-- End of main -->
-     
-    <include src="./partials/footer.html"></include>
-    <include src="./partials/commandModal.html"></include>
-    <script src="./commandModal.js" type="module"></script>
-    <script src="./index.js" type="module"></script>
-    <script type="module" src="/src/authApp.js"></script>
-    <script src="./fetchMovies.js" type="module"></script>
+      <!-- End of main -->
+      <!-- loader -->
+      <include src="./partials/loader.html"></include>
+      <!-- End of loader -->
+      <include src="./partials/footer.html"></include>
+      <include src="./partials/commandModal.html"></include>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.3/lottie.min.js"
+      integrity="sha512-e0f5QhAghpnR7F96ocZHSXHNrM1ugw32mmQJsKg02ADeVj7uxFkG5UA+HgrcTTxcPWp415lH+1l1b4nZtyqnsg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./js/themesToggle.js" type="module"></script>
+    <script src="./js/index.js" type="module"></script>
+    <script src="./js/authApp.js" type="module"></script>
+    <script src="./js/fetchMovies.js" type="module"></script>
   </body>
 </html>
