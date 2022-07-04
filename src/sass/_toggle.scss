@@ -1,0 +1,40 @@
+.toggle {
+    position: absolute;
+    right: 25px;
+    bottom: 15px;
+    // width:30px;
+    // height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.toggle.black {
+    background-color: black;
+}
+
+.toggle.white {
+    background-color: white;
+}
+
+.toggle-icon {
+    // border-radius: 3px;
+    transition: 0.3s;
+    cursor: pointer;
+    width:30px;
+    height: 30px;
+}
+
+.toggle.black .toggle-icon {
+    border: white solid 2px;
+}
+
+.toggle.white .toggle-icon {
+    border: black solid 2px;
+}
+
+#svg-animation {
+    width:26px;
+    height: 26px;
+}
