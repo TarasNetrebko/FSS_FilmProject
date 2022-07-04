@@ -98,13 +98,15 @@ export default class Paginator {
     }
 
     getBtnOne() {
-        return `<li class="pagination__button" >
+        const displayNoneClass = this.page !== 1 ? ' pagination__button--none' : '';
+        return `<li class="pagination__button ${displayNoneClass}" >
         <a class="pagination__button-link" href="?page=1">1</a>
     </li>`;
     }
 
     getBtnLast() {
-        return `<li class="pagination__button" >
+        const displayNoneClass = this.page !== this.pageCount ? ' pagination__button--none' : '';
+        return `<li class="pagination__button ${displayNoneClass}" >
         <a class="pagination__button-link" href="?page=${this.pageCount}">${this.pageCount}</a>
     </li>`;
     }
@@ -145,8 +147,8 @@ export default class Paginator {
     }
 
     getBtnDot(page) {
-        return `<li class="pagination__button">
-        <a class="pagination__button-link" href="?page=${page}">...</a>
+        return `<li class="pagination__button pagination__button-dots">
+        <a class="pagination__button-link " href="?page=${page}">...</a>
       </li>`;
     }
 
