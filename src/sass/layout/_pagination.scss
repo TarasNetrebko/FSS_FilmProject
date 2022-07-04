@@ -5,25 +5,51 @@
     justify-content: center;
     margin-bottom: 10px;// поки що
 
+    &__button {
+            background-color: #fff;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            /* border: none; */
+    
+            font-family: "Roboto";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            color: #000000;
+        }
+
 
 }
 
-.pagination__button {
-    background-color: #fff;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    /* border: none; */
 
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    color: #000000;
+.pagination__button-dots{
+    display: none;
+   
+    @include tab {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    }
+
+.pagination__button--none{
+    display: none;
+    @include tab {
+        display: flex;
+            justify-content: center;
+            align-items: center;
+    }
+}
+
+.pagination__button:hover {
+    box-shadow: #ff6b08 0px 0px 0px 1px;
+    // opacity: 0.2;
 }
 
 .pagination__button--disabled {
@@ -48,6 +74,7 @@ padding: 12px 16px;
 
 .pagination__active-btn {
     background: #ff6b08;
+    padding: 12px 16px;
     color: #ffffff;
 }
 
