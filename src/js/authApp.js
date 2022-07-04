@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, set, ref, update } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAdditionalUserInfo } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
-import '../node_modules/basiclightbox/dist/basicLightbox.min.css';
+import '../../node_modules/basiclightbox/dist/basicLightbox.min.css';
 import Notiflix from 'notiflix';
 const signInBtn = document.querySelector("#signInBtn");
 const logInBtn = document.querySelector("#logInBtn");
