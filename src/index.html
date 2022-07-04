@@ -10,11 +10,13 @@
   <body>
     <div class="container">
       <include src="./partials/header-home.html"></include>
+
       <!-- Main  -->
       <main class="main">
+        <ul class="pagination js-pagination-block"></ul>
         <div class="gallery"></div>
       </main>
-      <include src="./partials/pagination.html"></include>
+
       <!-- End of main -->
       <!-- loader -->
       <include src="./partials/loader.html"></include>
@@ -32,6 +34,14 @@
         </div>
       </footer>
     </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.3/lottie.min.js"
+      integrity="sha512-e0f5QhAghpnR7F96ocZHSXHNrM1ugw32mmQJsKg02ADeVj7uxFkG5UA+HgrcTTxcPWp415lH+1l1b4nZtyqnsg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./js/themesToggle.js" type="module"></script>
+
     <script src="./js/index.js" type="module"></script>
     <script src="./js/authApp.js" type="module"></script>
     <script src="./js/fetchMovies.js" type="module"></script>
