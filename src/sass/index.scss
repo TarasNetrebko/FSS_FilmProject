@@ -3,10 +3,12 @@
 @import './utils/common';
 @import './utils/colors';
 @import './authModals';
-@import './header-home';
+@import './layout/header-home';
 @import './utils/footer';
 @import './layout/main';
 @import './layout/modal';
+@import './layout/header-library';
 @import './layout/pagination';
 @import './toggle';
+@import './layout/loader';
 
