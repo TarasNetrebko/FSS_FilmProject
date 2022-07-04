@@ -19,6 +19,10 @@
     background: #fff;
   }
 
+  .dark .modal {
+    background-color: var(--secondary-background-color-dark-theme);
+  }
+
   .modal__close {
     position: fixed;
     top: 20px;
@@ -45,6 +49,11 @@
     color: #000000;
     text-transform: uppercase;
   }
+
+  .dark .modal__title {
+    color: var(--primary-font-color-dark-theme);
+  }
+
   .modal__info {
     margin-bottom: 14px;
   }
@@ -63,6 +72,9 @@
     line-height: 16px;
     color: #8c8c8c;
   }
+  
+  
+
   .modal__rating {
     background-color: #ff6b01;
     padding: 1px 10px;
@@ -116,6 +128,12 @@
       color: #fff;
     }
   }
+
+  .dark .modal__button {
+    color: var(--secondary-font-color-dark-theme);
+    border: 1px solid var(--secondary-font-color-dark-theme);
+  }
+
 }
 
 @media screen and (min-width: 768px) {
