@@ -26,13 +26,18 @@
     color: #000000;
 }
 
+.pagination__button--disabled {
+    pointer-events: none; //This makes it not clickable
+    opacity: 0.2;
+}
+
 .pagination__button:not(:last-child) {
     margin-right: 3px;
 }
 
 .pagination__button-link {
     text-decoration: none;
-
+padding: 12px 16px;
     font-family: "Roboto";
     font-style: normal;
     font-weight: 500;
@@ -46,7 +51,8 @@
     color: #ffffff;
 }
 
-.pagination__arrow-btn {
+.pagination__arrow-btn--left,
+.pagination__arrow-btn--right {
     background: #f7f7f7;
 }
 
