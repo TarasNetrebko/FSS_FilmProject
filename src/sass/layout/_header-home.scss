@@ -3,23 +3,18 @@
   padding-top: 44px;
   padding-bottom: 92px;
 
-  background-image: url('/src/images/header-home-480px.svg');
+  
   background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
+  // -o-background-size: 100% 100%;
+  // -webkit-background-size: 100% 100%;
   background-size: cover;
   background-position: center;
 
   background-color: var(--background-backout);
 
   @include tab {
-    background-image: url('/src/images/header-home-768px.svg');
     padding-top: 40px;
     padding-bottom: 80px;
-  }
-
-  @include desk {
-    background-image: url('/src/images/header-home-1280px.svg');
   }
 }
 
@@ -39,8 +34,15 @@
     color: var(--secondary-accent-color);
   }
 } 
-
-
+.container.header {
+  background-image: url('/src/images/header-home-480px.svg');
+  @include tab {
+      background-image: url('/src/images/header-home-768px.svg');
+  }
+    @include desk {
+      background-image: url('/src/images/header-home-1280px.svg');
+    }
+}
 
 .nav-home {
   display: flex;

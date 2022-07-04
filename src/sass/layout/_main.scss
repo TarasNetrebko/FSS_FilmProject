@@ -9,7 +9,6 @@
   }
   .gallery {
     width: 320px;
-    padding: 20px;
     background: #ffffff;
   }
 
@@ -35,8 +34,6 @@
 @media screen and (min-width: 768px) {
   .gallery {
     width: 768px;
-    padding-left: 32px;
-    padding-right: 32px;
     padding-top: 60px;
     padding-bottom: 28px;
     background: #ffffff;
@@ -67,9 +64,7 @@
 
 @media screen and (min-width: 1280px) {
   .gallery {
-    width: 1280px;
-    padding-left: 32px;
-    padding-right: 32px;
+    width: 1216px;
     padding-top: 60px;
     padding-bottom: 28px;
     background: #ffffff;
@@ -80,7 +75,7 @@
 
   .card {
     margin-bottom: 32px;
-    width: calc(100% / 3 - 32px);
+    width: calc(100% / 3 - 16px);
   }
 
   .card__image {
