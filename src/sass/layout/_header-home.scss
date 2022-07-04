@@ -1,16 +1,22 @@
+.container.header-home {
+  background-color: var(--background-backout);
+  background-image: url('/src/images/header-home-480px.svg');
+  background-size: cover;
+  background-position: center;
+
+  @include tab {
+    background-image: url('/src/images/header-home-768px.svg');
+  }
+
+  @include desk {
+    background-image: url('/src/images/header-home-1280px.svg');
+  }
+}
+
 .header-home__container {
   position: relative;
   padding-top: 44px;
   padding-bottom: 92px;
-
-  
-  background-size: 100% 100%;
-  // -o-background-size: 100% 100%;
-  // -webkit-background-size: 100% 100%;
-  background-size: cover;
-  background-position: center;
-
-  background-color: var(--background-backout);
 
   @include tab {
     padding-top: 40px;
@@ -33,15 +39,6 @@
   &:focus {
     color: var(--secondary-accent-color);
   }
-} 
-.container.header {
-  background-image: url('/src/images/header-home-480px.svg');
-  @include tab {
-      background-image: url('/src/images/header-home-768px.svg');
-  }
-    @include desk {
-      background-image: url('/src/images/header-home-1280px.svg');
-    }
 }
 
 .nav-home {
@@ -89,7 +86,6 @@
     color: var(--secondary-accent-color);
   }
 }
-
 
 .nav-home__link--overlay {
   &::after {
