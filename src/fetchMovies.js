@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as basicLightbox from 'basiclightbox';
 
+
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
 
@@ -97,7 +98,10 @@ function renderMoviesCardsMarkup(obj) {
 
 startfilm();
 
+let filmInfo;
+
 function createModal(data) {
+  filmInfo = data.data;
   const {
     poster_path,
     title,
@@ -146,10 +150,10 @@ function createModal(data) {
         <h3 class="modal__plot-title">About</h3>
         <p class="modal__plot">${overview}</p>
         <div class="modal__button-wrapper">
-          <button type="button" class="modal__button watched">
+          <button id="watchedBtn" type="button" class="modal__button watched">
             Add to watched
           </button>
-          <button type="button" class="modal__button watched">
+          <button id="queueBtn" type="button" class="modal__button watched">
             Add to queue
           </button>
         </div>
@@ -170,6 +174,10 @@ function createModal(data) {
       },
     }
   );
-
+    
   instance.show();
 }
+
+// ------------------
+// QUEUE & WATCHED
+// ------------------
