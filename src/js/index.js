@@ -1,4 +1,4 @@
-import Paginator from "./js/Paginator";
+import Paginator from "../js/Paginator";
 
 let dataLength = 1000;
 
