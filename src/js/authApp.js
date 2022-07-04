@@ -166,11 +166,11 @@ function logOut() {
 // ------------------
 // QUEUE & WATCHED
 // ------------------
-const queueBtn = document.querySelector("#queueBtn");
-const watchedBtn = document.querySelector("#watchedBtn");
-queueBtn.addEventListener("click", addFilmToQueue);
-watchedBtn.addEventListener("click", addFilmToWatched);
+// const queueBtn = document.querySelector("#queueBtn");
+// const watchedBtn = document.querySelector("#watchedBtn");
+// queueBtn.addEventListener("click", addFilmToQueue);
+// watchedBtn.addEventListener("click", addFilmToWatched);
 
-function addFilmToQueue() {
-    console.log(filmInfo.id);
-}
+// function addFilmToQueue() {
+//     console.log(filmInfo.id);
+// }
