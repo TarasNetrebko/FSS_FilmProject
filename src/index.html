@@ -3,33 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>Filmoteka</title>
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+    <link rel="shortcut icon" href="./images/film.ico" type="image/x-icon" />
   </head>
   <body>
-    <div class="container"> 
-    <include src="./partials/header-home.html"></include>
-    <!-- Main  -->
-    <main class="main">
-      <div class="main"></div>
-    </main>
-    <!-- End of main -->
-    <footer class="footer">
-      <div class="footer-box-one">
-        <p class="footer-text footer-text_article">
-          © 2020 | All Rights Reserved |
-        </p>
-        <div class="footer-box-two">
-          <p class="footer-text">Developed with</p>
-          <img src="./images/Vector.png" class="footer-images" alt="love" />
-          <a href="" class="footer-text">by <ins>GoIT Students</ins></a>
+    <div class="container">
+      <include src="./partials/header-home.html"></include>
+      <!-- Main  -->
+      <main class="main">
+        <div class="gallery"></div>
+      </main>
+      <!-- End of main -->
+      <footer class="footer">
+        <div class="footer-box-one">
+          <p class="footer-text footer-text_article">
+            © 2020 | All Rights Reserved |
+          </p>
+          <div class="footer-box-two">
+            <p class="footer-text">Developed with</p>
+            <img src="./images/Vector.png" class="footer-images" alt="love" />
+            <a href="" class="footer-text">by <ins>GoIT Students</ins></a>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
     </div>
-    <script src="./index.js" type="module"></script>
-    <script type="module" src="/src/authApp.js"></script>
-    <script src="./fetchMovies.js" type="module"></script>
+    <script src="./js/index.js" type="module"></script>
+    <script src="./js/authApp.js" type="module"></script>
+    <script src="./js/fetchMovies.js" type="module"></script>
   </body>
 </html>
