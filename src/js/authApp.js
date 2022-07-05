@@ -17,6 +17,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
+let userId;
+onAuthStateChanged(auth, (user) => {
+  if (user) {    
+    userId = user.uid;
+  }
+});
 
 export default function createModal(data) {
   const {
@@ -85,11 +91,9 @@ export default function createModal(data) {
 
         queueBtn.addEventListener("click", addFilmToQueue);
   function addFilmToWatched() {     
-            const userId = auth.currentUser.uid;
             set(ref(database, `users/${userId}/watchedMovies/${id}`), data);
   }
   function addFilmToQueue() {
-            const userId = auth.currentUser.uid;
             set(ref(database, `users/${userId}/queueOfMovies/${id}`), data);
   }
         instance.element().querySelector('.modal__close').onclick = instance.close;
