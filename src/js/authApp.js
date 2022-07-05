@@ -84,11 +84,10 @@ export default function createModal(data) {
         watchedBtn.addEventListener("click", addFilmToWatched);
 
     //     // queueBtn.addEventListener("click", addFilmToQueue);
-        function addFilmToWatched() {
-          console.log("click");
-          console.log("click");
-    //       //     const userId = auth.currentUser.uid;
-    //       //     set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data.json());
+  function addFilmToWatched() {     
+            console.log(data.data);
+            // const userId = auth.currentUser.uid;
+            // set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data);
         }
         instance.element().querySelector('.modal__close').onclick = instance.close;
         document.addEventListener('keyup', closeModal);
