@@ -10,7 +10,6 @@
 // }
 import axios from 'axios';
 
-
 export default function fetchFromBackend(url, callback) {
   axios
     .get(url)

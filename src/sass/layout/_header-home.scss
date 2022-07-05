@@ -194,3 +194,27 @@
 
   fill: var(--secondary-accent-color);
 }
+
+.test {
+  position: relative;
+}
+
+.header-home__message {
+  position: absolute;
+  width: 100%;
+
+  @include font(14px, 400, 1.14);
+  color: var(--secondary-accent-color);
+
+  @include tab {
+    text-align: center;
+  }
+}
+
+.header-home__message--append {
+  margin-top: 16px;
+
+  @include tab {
+    margin-top: 20px;
+  }
+}
