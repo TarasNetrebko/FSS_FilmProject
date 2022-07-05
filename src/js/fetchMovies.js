@@ -53,7 +53,7 @@ async function startfilm() {
   await getPopularMovies();
 }
 
-function renderMoviesCardsMarkup(obj) {
+export default function renderMoviesCardsMarkup(obj) {
   const array = obj.data.results;
   const markup = array
     .map(({ id, poster_path, genre_ids, original_title, release_date }) => {

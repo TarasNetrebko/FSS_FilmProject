@@ -192,3 +192,17 @@
 
   fill: var(--secondary-accent-color);
 }
+
+.header-home__message {
+  @include font(14px, 400, 1.14);
+  color: var(--secondary-accent-color);
+}
+
+.header-home__message--append {
+  margin-top: 16px;
+
+  @include tab {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
