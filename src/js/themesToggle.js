@@ -8,14 +8,16 @@ toggle.addEventListener('click', toggleHandler);
 const STORAGE_KEY = "toggle-status";
 
 function toggleHandler() {        
-    if (body.classList.contains("dark")) {
+  if (body.classList.contains("dark")) {
+        gallery.classlist.remove("dark")
         body.classList.remove("dark")
         svg.firstChild.remove();
     changreBGToWhith();
         
         localStorage.removeItem(STORAGE_KEY);
     } else {
-        body.classList.add("dark")
+    body.classList.add("dark")
+    gallery.classlist.add("dark")
         svg.firstChild.remove();
     changreBGToBlaack();
     localStorage.setItem(STORAGE_KEY, "on");
