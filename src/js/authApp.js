@@ -77,40 +77,30 @@ export default function createModal(data) {
           </button>
         </div>
       </div>
-    </div>`)
-  console.log("object");
+    </div>`)  
   instance.show()
-  console.log("object");
-  // const watchedBtn = document.querySelector("#watchedBtn");
-  //   //     // const queueBtn = document.querySelector("#queueBtn");
-  //       watchedBtn.addEventListener("click", addFilmToWatched);
+  const watchedBtn = document.querySelector("#watchedBtn");
+    //     // const queueBtn = document.querySelector("#queueBtn");
+        watchedBtn.addEventListener("click", addFilmToWatched);
 
-  //   //     // queueBtn.addEventListener("click", addFilmToQueue);
-  //       function addFilmToWatched() {
-  //         console.log("click");
-  //   //       //     const userId = auth.currentUser.uid;
-  //   //       //     set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data.json());
-  //       }
-    // {
-    //   onShow: instance => {
-    //     
-    //     instance.element().querySelector('.modal__close').onclick = instance.close;
-    //     document.addEventListener('keyup', closeModal);
-    //     function closeModal(event) {
-    //       if (event.key === 'Escape') {
-    //         instance.close();
-    //         document.removeEventListener('keyup', closeModal);
-    //       }
-    //     }
-    //     document.querySelector('body').style.overflow = "hidden";
-    //   },
-    //   onClose: instance => {
-    //     document.querySelector('body').style.overflow = "auto";
-    //   }
-    
-    // }
+    //     // queueBtn.addEventListener("click", addFilmToQueue);
+        function addFilmToWatched() {
+          console.log("click");
+    //       //     const userId = auth.currentUser.uid;
+    //       //     set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data.json());
+        }
+        instance.element().querySelector('.modal__close').onclick = instance.close;
+        document.addEventListener('keyup', closeModal);
+        function closeModal(event) {
+          if (event.key === 'Escape') {
+            instance.close();
+            document.removeEventListener('keyup', closeModal);
+          }
+        }
+        // document.querySelector('body').style.overflow = "hidden";
+        // document.querySelector('body').style.overflow = "auto";
 }
-
+  
 const signInBtn = document.querySelector("#signInBtn");
 const logInBtn = document.querySelector("#logInBtn");
 const logOutBtn = document.querySelector("#logOutBtn");
