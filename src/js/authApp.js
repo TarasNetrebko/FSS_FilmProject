@@ -85,7 +85,7 @@ export default function createModal(data) {
 
     //     // queueBtn.addEventListener("click", addFilmToQueue);
   function addFilmToWatched() {     
-            console.log(data.data);
+            console.log(data);
             // const userId = auth.currentUser.uid;
             // set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data);
         }
