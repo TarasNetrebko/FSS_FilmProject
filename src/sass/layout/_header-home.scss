@@ -40,7 +40,9 @@
     color: var(--secondary-accent-color);
   }
 }
-
+#displayEmail {
+  color: var(--white-color);
+}
 .nav-home {
   display: flex;
   align-items: center;

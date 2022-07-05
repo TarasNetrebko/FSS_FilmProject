@@ -3,13 +3,7 @@ import { getDatabase, set, ref, update } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAdditionalUserInfo } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
 import '../../node_modules/basiclightbox/dist/basicLightbox.min.css';
-import Notiflix from 'notiflix';
-const signInBtn = document.querySelector("#signInBtn");
-const logInBtn = document.querySelector("#logInBtn");
-const logOutBtn = document.querySelector("#logOutBtn");
-
-
-
+import Notiflix, { Notify } from 'notiflix';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ",
@@ -20,26 +14,107 @@ const firebaseConfig = {
   messagingSenderId: "735705088230",
   appId: "1:735705088230:web:5f28a2933df786d005bb27"
 };
-
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
-let userData;
 
-window.addEventListener("DOMContentLoaded", loadedContentCheck);
+export default function createModal(data) {
+  const {
+    poster_path,
+    title,
+    genres,
+    id,
+    original_title,
+    overview,
+    popularity,
+    release_date,
+    vote_average,
+    vote_count,
+  } = data.data;
+  const instance = basicLightbox.create(
+    `<div class="modal">
+      <span class="modal__close">+</span>
+      <!--<div class="modal__img" style='background-image: url("https://image.tmdb.org/t/p/w500/${poster_path}");'>-->
+      <img
+        class="modal__img"
+        src="https://image.tmdb.org/t/p/w500/${poster_path}"
+        alt="${original_title} movie poster"
+        class="modal__img"
+      />
+      <!--</div>-->
+      <div class="modal__description">
+        <h2 class="modal__title">${original_title}</h2>
+        <table class="modal__info">
+          <tbody>
+            <tr>
+              <td>Vote / Votes</td>
+              <td><span class="modal__rating">${vote_average}</span> / ${vote_count}</td>
+            </tr>
+            <tr>
+              <td>Popularity</td>
+              <td>${popularity}</td>
+            </tr>
+            <tr>
+              <td>Original Title</td>
+              <td class="modal__original-title">${original_title}</td>
+            </tr>
+            <tr>
+              <td>Genre</td>
+              <td class="modal__genre">${genres
+      .map(el => `${el.name}`)
+      .join(', ')}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3 class="modal__plot-title">About</h3>
+        <p class="modal__plot">${overview}</p>
+        <div class="modal__button-wrapper">
+          <button id="watchedBtn" type="button" class="modal__button watched">
+            Add to watched
+          </button>
+          <button id="queueBtn" type="button" class="modal__button queue">
+            Add to queue
+          </button>
+        </div>
+      </div>
+    </div>`)
+  console.log("object");
+  instance.show()
+  console.log("object");
+  const watchedBtn = document.querySelector("#watchedBtn");
+    //     // const queueBtn = document.querySelector("#queueBtn");
+        watchedBtn.addEventListener("click", addFilmToWatched);
 
-function loadedContentCheck() {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-                logInBtn.disabled = true;
-                logOutBtn.disabled = false;
-        } else {
-                logInBtn.disabled = false;
-                logOutBtn.disabled = true;
+    //     // queueBtn.addEventListener("click", addFilmToQueue);
+        function addFilmToWatched() {
+          console.log("click");
+    //       //     const userId = auth.currentUser.uid;
+    //       //     set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data.json());
         }
-    })
+    // {
+    //   onShow: instance => {
+    //     
+    //     instance.element().querySelector('.modal__close').onclick = instance.close;
+    //     document.addEventListener('keyup', closeModal);
+    //     function closeModal(event) {
+    //       if (event.key === 'Escape') {
+    //         instance.close();
+    //         document.removeEventListener('keyup', closeModal);
+    //       }
+    //     }
+    //     document.querySelector('body').style.overflow = "hidden";
+    //   },
+    //   onClose: instance => {
+    //     document.querySelector('body').style.overflow = "auto";
+    //   }
+    
+    // }
 }
 
+const signInBtn = document.querySelector("#signInBtn");
+const logInBtn = document.querySelector("#logInBtn");
+const logOutBtn = document.querySelector("#logOutBtn");
+const displayEmail = document.querySelector("#displayEmail");
 
 signInBtn.addEventListener("click", signInModal);
 logInBtn.addEventListener("click", logInModal);
@@ -74,6 +149,10 @@ function signInModal() {
                 displayName: username,
             })
             signInForm.reset();
+            displayEmail.innerHTML = `${auth.currentUser.email}`;
+            logInBtn.classList.add("visually-hidden");
+            signInBtn.classList.add("visually-hidden");
+            logOutBtn.classList.remove("visually-hidden");
             instance.close()
             Notiflix.Notify.success(`User: ${auth.currentUser.email} created!`);
     
@@ -105,7 +184,7 @@ function logInModal() {
       <button id="submitLogInBtn" type="submit">Confirm</button>
     </form>
 `)
-    instance.show()
+  instance.show()
     const logInForm = document.querySelector("#logInForm");
     logInForm.addEventListener("submit", authUser);
 
@@ -121,17 +200,16 @@ function logInModal() {
                     // set(ref(database, 'users/' + user.uid), {
                     //     online: true,
                     // })
-                    console.log(auth.currentUser);
-                    logInForm.reset();
-                        logInBtn.disabled = true;
-                    logOutBtn.disabled = false;
                     update(ref(database, 'users/' + user.uid), {
                         last_login: currDate,
                         online: true,
-
                     })
-                        instance.close()
-                        Notiflix.Notify.success(`User: ${auth.currentUser.email} loged in!`)
+                    displayEmail.innerHTML = `${auth.currentUser.email}`;
+                    logInBtn.classList.add("visually-hidden");
+                    signInBtn.classList.add("visually-hidden");
+                    logOutBtn.classList.remove("visually-hidden");
+                    instance.close();
+                    Notiflix.Notify.success(`User: ${auth.currentUser.email} loged in!`)
                     })
                     .catch((error) => {
                         const errorCode = error.code;
@@ -154,8 +232,10 @@ function logOut() {
                 online: false,
             });
             signOut(auth).then(() => {
-                logInBtn.disabled = false;
-                logOutBtn.disabled = true; 
+                logInBtn.classList.remove("visually-hidden");
+                signInBtn.classList.remove("visually-hidden");
+                displayEmail.innerHTML = "";
+                logOutBtn.classList.add("visually-hidden"); 
             // Sign-out successful.
             }).catch((error) => {
             // An error happened.

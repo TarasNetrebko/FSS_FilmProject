@@ -1,5 +1,5 @@
 import fetchFromBackend from './fetchAPI';
-import createModal from './createModal';
+import createModal from './authApp';
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
