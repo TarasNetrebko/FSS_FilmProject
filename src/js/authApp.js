@@ -81,16 +81,16 @@ export default function createModal(data) {
   console.log("object");
   instance.show()
   console.log("object");
-  const watchedBtn = document.querySelector("#watchedBtn");
-    //     // const queueBtn = document.querySelector("#queueBtn");
-        watchedBtn.addEventListener("click", addFilmToWatched);
+  // const watchedBtn = document.querySelector("#watchedBtn");
+  //   //     // const queueBtn = document.querySelector("#queueBtn");
+  //       watchedBtn.addEventListener("click", addFilmToWatched);
 
-    //     // queueBtn.addEventListener("click", addFilmToQueue);
-        function addFilmToWatched() {
-          console.log("click");
-    //       //     const userId = auth.currentUser.uid;
-    //       //     set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data.json());
-        }
+  //   //     // queueBtn.addEventListener("click", addFilmToQueue);
+  //       function addFilmToWatched() {
+  //         console.log("click");
+  //   //       //     const userId = auth.currentUser.uid;
+  //   //       //     set(ref(database, `users/${userId}/watchedMovies/${id}`), data.data.json());
+  //       }
     // {
     //   onShow: instance => {
     //     
