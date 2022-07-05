@@ -86,11 +86,11 @@ export default function createModal(data) {
     //     // queueBtn.addEventListener("click", addFilmToQueue);
   function addFilmToWatched() {     
             const userId = auth.currentUser.uid;
-            set(ref(database, `users/${userId}/watchedMovies/${id}`), data.toJSON());
+            set(ref(database, `users/${userId}/watchedMovies/${id}`), JSON.parse(data));
   }
   function addFilmToQueue() {
             const userId = auth.currentUser.uid;
-            set(ref(database, `users/${userId}/queueOfMovies/${id}`), data.toJSON());
+            set(ref(database, `users/${userId}/queueOfMovies/${id}`), JSON.parse(data));
   }
         instance.element().querySelector('.modal__close').onclick = instance.close;
         document.addEventListener('keyup', closeModal);
