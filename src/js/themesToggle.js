@@ -1,5 +1,6 @@
 const body = document.querySelector("body");
 const toggle = document.querySelector(".toggle");
+const main = document.querySelector(".main");
 
 let svg = document.getElementById("svg-animation");
 
@@ -9,7 +10,7 @@ const STORAGE_KEY = "toggle-status";
 
 function toggleHandler() {        
   if (body.classList.contains("dark")) {
-        gallery.classlist.remove("dark")
+        main.classlist.remove("dark")
         body.classList.remove("dark")
         svg.firstChild.remove();
     changreBGToWhith();
@@ -17,7 +18,7 @@ function toggleHandler() {
         localStorage.removeItem(STORAGE_KEY);
     } else {
     body.classList.add("dark")
-    gallery.classlist.add("dark")
+    main.classlist.add("dark")
         svg.firstChild.remove();
     changreBGToBlaack();
     localStorage.setItem(STORAGE_KEY, "on");
