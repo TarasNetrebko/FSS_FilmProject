@@ -3,6 +3,7 @@
     display: flex;
     /* align-items: center; */
     justify-content: center;
+    padding-bottom: 50px;
     // час прийшов
 
     &__button {
@@ -14,7 +15,7 @@
             height: 40px;
             border-radius: 5px;
             /* border: none; */
-    
+
             font-family: "Roboto";
             font-style: normal;
             font-weight: 500;
@@ -29,7 +30,7 @@
 
 .pagination__button-dots{
     display: none;
-   
+
     @include tab {
         display: flex;
         justify-content: center;
