@@ -31,6 +31,9 @@
     font-size: 30px;
     font-weight: 100;
     cursor: pointer;
+    &:hover {
+      color: var(--secondary-accent-color);
+    }
   }
 
   .modal__img {
@@ -137,6 +140,9 @@
   .dark .modal__button {
     color: var(--secondary-font-color-dark-theme);
     border: 1px solid var(--secondary-font-color-dark-theme);
+    &:hover {
+          border: 1px solid transparent;
+    }
   }
 
 }
