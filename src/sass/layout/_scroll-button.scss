@@ -1,0 +1,40 @@
+.scroll__button {
+  position: fixed;
+  //   bottom: 0;
+  //   right: 0;
+
+  bottom: 110px;
+  right: 25px;
+
+  //   width: 40px;
+
+  visibility: hidden;
+  opacity: 0;
+
+  font-size: 30px;
+  line-height: 20px;
+
+  //   border: none;
+  border-radius: 50%;
+  border: 1px solid red;
+  //   background-color: rgba(133, 36, 70, 0.89);
+}
+
+.scroll__icon {
+  width: 30px;
+  height: 30px;
+  fill: #000;
+}
+
+.scroll-visible {
+  visibility: visible;
+  opacity: 1;
+
+  animation-name: animation-btn;
+  animation-duration: 500ms;
+  animation-timing-function: linear;
+}
+
+.scroll__icon {
+  transform: rotate(-180deg);
+}
