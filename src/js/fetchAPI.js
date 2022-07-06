@@ -23,7 +23,5 @@ export default function fetchFromBackend(url, callback) {
     })
     .then(function () {
       // always executed
-      loader.classList.add('hidden');
-      console.log(loader);
     });
 }
