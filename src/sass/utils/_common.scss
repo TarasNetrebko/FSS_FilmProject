@@ -58,7 +58,7 @@ img {
   background-color: var(--white-color);
 
   @include mob {
-    width: 320px;
+    //width: 320px;
   }
 
   @include tab {
@@ -76,7 +76,7 @@ img {
 
 .dark .container{
   background-color: var(--primary-background-color-dark-theme);
-  color: var(--primary-font-color-dark-theme);  
+  color: var(--primary-font-color-dark-theme);
 }
 a {
   text-decoration: none;
