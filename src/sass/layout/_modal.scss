@@ -140,6 +140,9 @@
     color: var(--secondary-font-color-dark-theme);
     border: 1px solid var(--secondary-font-color-dark-theme);
     &:hover {
+        border: none;
+        background-color: #ff6b01; 
+      }
           border: 1px solid transparent;
     }
   }
