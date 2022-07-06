@@ -1,5 +1,8 @@
 import fetchFromBackend from './fetchAPI';
 import createModal from './authApp';
+import Paginator from "./Paginator";
+console.log(Paginator.getCurrentPage());
+
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
@@ -35,7 +38,9 @@ function getGenreList() {
 }
 
 function getPopularMovies() {
-  const URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
+  const page = Paginator.getCurrentPage();
+  const pageQueryStr = `&page=${page}`
+  const URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}` + pageQueryStr;
   fetchFromBackend(URL, renderMoviesCardsMarkup);
 }
 
