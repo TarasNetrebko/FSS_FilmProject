@@ -11,6 +11,9 @@
 import axios from 'axios';
 
 export default function fetchFromBackend(url, callback) {
+  let loader = document.querySelector(".preloader");
+  console.log(loader);
+  loader.classList.remove("hidden");
   axios
     .get(url)
     .then(async function (response) {
@@ -22,6 +25,8 @@ export default function fetchFromBackend(url, callback) {
       console.log(error);
     })
     .then(function () {
-      // always executed
+      // // always executed
+      loader.classList.add("hidden");
+    
     });
 }
