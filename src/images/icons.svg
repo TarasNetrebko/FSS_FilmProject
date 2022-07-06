@@ -19,4 +19,8 @@
 		<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M16 25.334l9.333-9.333-9.333-9.333">
 		</path>
 	</symbol>
+	<symbol fill="none" id="icon-X" viewBox="0 0 32 32">
+		<path d="M32 3.223l-3.223-3.223-12.777 12.777-12.777-12.777-3.223 3.223 12.777 12.777-12.777 12.777 3.223 3.223 12.777-12.777 12.777 12.777 3.223-3.223-12.777-12.777 12.777-12.777z">
+		</path>
+	</symbol>
 </svg>

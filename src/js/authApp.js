@@ -67,7 +67,11 @@ export default function createModal(data) {
   } = data.data;
   const instance = basicLightbox.create(
     `<div class="modal">
-      <span class="modal__close">+</span>
+      <span class="modal__close">
+      <svg class="modal-button-x" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
+      </span>
       <!--<div class="modal__img" style='background-image: url("https://image.tmdb.org/t/p/w500/${poster_path}");'>-->
       <img
         class="modal__img"
@@ -207,13 +211,38 @@ logOutBtn.addEventListener("click", logOut);
 
 function signInModal() {   
     
-        const instance = basicLightbox.create(`
-    <form action="" id="signInForm">
-    <input id="username" type="text" name="username" placeholder="Your name">
-      <input id="email" type="email" name="email" placeholder="Your email">
-      <input id="password" type="password" name="password" placeholder="Your password">
-      <button id="submitSignInBtn" type="submit">Confirm</button>
-    </form>
+    const instance = basicLightbox.create(`
+    <div class="modal-body">    
+        <p class="modal-title">Sign In</p>        
+        <form action="" id="signInForm"> 
+            <div class="form-field">    
+                <label for="username" class="input-text">Name</label>
+                <div class="input-wrap">            
+                    <input id="username" type="text" name="username" placeholder="Your name">
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="email" class="input-text">Email</label>
+                <div class="input-wrap">
+                    <input id="email" type="email" name="email" placeholder="Your email">
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="password" class="input-text">Password</label>
+                <div class="input-wrap">
+                    <input id="password" type="password" name="password" placeholder="Your password">
+                </div>
+            </div>
+             <div class="form-button">
+            <button id="submitSignInBtn" type="submit">Confirm</button>
+            </div>
+        </form>
+        <button type="button" class="modal-button">
+                <svg class="modal-button-x" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
+        </button>
+    </div>
 `)      
     instance.show()
     const signInForm = document.querySelector("#signInForm");
@@ -261,12 +290,32 @@ function signInModal() {
 function logInModal() {
     
     
-    const instance = basicLightbox.create(`
-    <form action="" id="logInForm">
-      <input id="email" type="email" name="email" placeholder="Your email">
-      <input id="password" type="password" name="password" placeholder="Your password">
-      <button id="submitLogInBtn" type="submit">Confirm</button>
-    </form>
+    const instance = basicLightbox.create(`    
+    <div class="modal-body">    
+        <p class="modal-title">log In</p>        
+        <form action="" id="logInForm">             
+            <div class="form-field">
+                <label for="email" class="input-text">Email</label>
+                <div class="input-wrap">
+                    <input id="email" type="email" name="email" placeholder="Your email">
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="password" class="input-text">Password</label>
+                <div class="input-wrap">
+                    <input id="password" type="password" name="password" placeholder="Your password">
+                </div>
+            </div>
+             <div class="form-button">
+            <button id="submitLogInBtn" type="submit">Confirm</button>
+            </div>
+        </form>
+        <button type="button" class="modal-button">
+                <svg class="modal-button-x" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
+        </button>
+    </div>
 `)
   instance.show()
     const logInForm = document.querySelector("#logInForm");

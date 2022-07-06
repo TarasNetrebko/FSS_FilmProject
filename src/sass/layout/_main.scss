@@ -13,6 +13,10 @@
     background: #ffffff;
   }
 
+  .dark .gallery {
+    background-color: var(--primary-background-color-dark-theme);
+  }
+
   .card {
     margin: 0px auto 20px;
     display: flex;
