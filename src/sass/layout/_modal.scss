@@ -30,6 +30,9 @@
     font-size: 30px;
     font-weight: 100;
     cursor: pointer;
+    &:hover {
+      color: var(--secondary-accent-color);
+    }
   }
 
   .modal__img {
@@ -140,6 +143,8 @@
         border: none;
         background-color: #ff6b01; 
       }
+          border: 1px solid transparent;
+    }
   }
 
 }

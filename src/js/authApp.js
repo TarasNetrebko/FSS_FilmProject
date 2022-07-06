@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, set, ref, update } from "firebase/database";
+import { getDatabase, set, ref, update, get, onValue, child, remove } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAdditionalUserInfo } from "firebase/auth";
 import * as basicLightbox from 'basiclightbox';
 import '../../node_modules/basiclightbox/dist/basicLightbox.min.css';
@@ -17,6 +17,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
+let userId;
+let watchedMovies;
+let moviesInQueue;
+
+export default function getQueue() {
+  return moviesInQueue;
+}
+export default function getWatched() {
+  return watchedMovies;
+}
+onAuthStateChanged(auth, (user) => {
+  if (user) {    
+    userId = user.uid;
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/${userId}/watchedMovies`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      watchedMovies = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+    get(child(dbRef, `users/${userId}/queueOfMovies`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      moviesInQueue = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  }
+});
 
 export default function createModal(data) {
   const {
@@ -79,22 +113,79 @@ export default function createModal(data) {
           <button id="queueBtn" type="button" class="modal__button queue">
             Add to queue
           </button>
+          <button id="removeFromWatchedBtn" type="button" class="modal__button watched">
+            Remove from watched
+          </button>
+          <button id="removeFromQueueBtn" type="button" class="modal__button queue">
+            Remove From queue
+          </button>
         </div>
       </div>
     </div>`)  
   instance.show()
   const watchedBtn = document.querySelector("#watchedBtn");
-        const queueBtn = document.querySelector("#queueBtn");
-        watchedBtn.addEventListener("click", addFilmToWatched);
-
-        queueBtn.addEventListener("click", addFilmToQueue);
+  const queueBtn = document.querySelector("#queueBtn");
+  const removeFromWatchedBtn = document.querySelector("#removeFromWatchedBtn");
+  const removeFromQueueBtn = document.querySelector("#removeFromQueueBtn");
+  removeFromWatchedBtn.addEventListener("click", removeFromWatched);
+  removeFromQueueBtn.addEventListener("click", removeFromQueue);
+  watchedBtn.addEventListener("click", addFilmToWatched);
+  queueBtn.addEventListener("click", addFilmToQueue);
   function addFilmToWatched() {     
-            const userId = auth.currentUser.uid;
-            set(ref(database, `users/${userId}/watchedMovies/${id}`), data);
+    set(ref(database, `users/${userId}/watchedMovies/${id}`), JSON.stringify(data.data));
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/${userId}/watchedMovies`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      watchedMovies = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
   }
   function addFilmToQueue() {
-            const userId = auth.currentUser.uid;
-            set(ref(database, `users/${userId}/queueOfMovies/${id}`), data);
+    set(ref(database, `users/${userId}/queueOfMovies/${id}`), JSON.stringify(data.data));
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/${userId}/queueOfMovies`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      moviesInQueue = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  }
+  function removeFromWatched() {
+    remove(ref(database, `users/${userId}/watchedMovies/${id}`))
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/${userId}/watchedMovies`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      watchedMovies = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  }
+  function removeFromQueue() {
+    remove(ref(database, `users/${userId}/queueOfMovies/${id}`))
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/${userId}/queueOfMovies`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      moviesInQueue = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
   }
         instance.element().querySelector('.modal__close').onclick = instance.close;
         document.addEventListener('keyup', closeModal);
