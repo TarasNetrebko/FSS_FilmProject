@@ -2,15 +2,6 @@
     background-color: var(--secondary-background-color);
     padding-top: 30px;
     padding-bottom: 30px;
-    width: 320px;
-    margin: 0 auto;
-        @include tab {
-            width: 768px;
-        }
-    
-        @include desk {
-            width: 1216px;
-        }
 }
 
 .dark .footer {
