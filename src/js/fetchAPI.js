@@ -12,7 +12,6 @@ import axios from 'axios';
 
 export default function fetchFromBackend(url, callback) {
   let preloader = document.querySelector(".preloader");
-  console.log(preloader);
   preloader.classList.remove("hidden");
   axios
     .get(url)
