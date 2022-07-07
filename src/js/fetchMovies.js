@@ -1,7 +1,9 @@
 import fetchFromBackend from './fetchAPI';
 import createModal from './authApp';
 import Paginator from "./Paginator";
+import { onShowMovies } from './searchMovies';
 console.log(Paginator.getCurrentPage());
+
 
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
@@ -55,11 +57,21 @@ function getMovieInfo(id) {
 
 async function startfilm() {
   await getGenreList();
-  await getPopularMovies();
+
+  const params = new URLSearchParams(window.location.search);
+  const searchQuery = params.get('searchMovie');
+
+  if (searchQuery && searchQuery.length) {
+    await onShowMovies(searchQuery);
+  } else {
+    await getPopularMovies();
+  }
+
 }
 
 export default function renderMoviesCardsMarkup(obj) {
   const array = obj.data.results;
+
   const markup = array
     .map(({ id, poster_path, genre_ids, original_title, release_date }) => {
       return `<article class="card" data-id="${id}">
@@ -71,9 +83,8 @@ export default function renderMoviesCardsMarkup(obj) {
                         />
                       <p class="card__title">${original_title}</p>
                       <p class="card__genres">
-                        ${GenreString(genre_ids)} | <span class="card__year">${
-        release_date.split('-')[0]
-      }</span>
+                        ${GenreString(genre_ids)} | <span class="card__year">${release_date.split('-')[0]
+        }</span>
                       </p>
                     </article>`;
     })
@@ -85,6 +96,9 @@ export default function renderMoviesCardsMarkup(obj) {
       getMovieInfo(movieId);
     });
   });
+
+  const paginator = new Paginator(Paginator.getCurrentPage(), 20, obj.data.total_results);
+  paginator.render();
 }
 
 startfilm();
