@@ -73,16 +73,20 @@
           <button class="header-library__btn header-library__btn--outline">
             Queue
           </button>
+          <div class="toggle">
+          <div class="toggle-icon">
+            <div id="svg-animation"></div>
+          </div>
         </div>
-      </div>
+        </div>        
+      </div>      
     </header>
-
     <main class="container main">
       <!-- <div class="gallery"></div> -->
       <ul class="pagination js-pagination-block"></ul>
     </main>
-
-    <include src="./partials/loader.html"></include>
+    <include src="./partials/scroll-button.html"></include>
+    <!-- <include src="./partials/loader.html"></include> -->
     <include src="./partials/footer.html"></include>
     <include src="./partials/commandModal.html"></include>
 
@@ -92,8 +96,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-
     <script src="./js/index.js" type="module"></script>
+    <script src="./js/scroll-button.js" type="module"></script>
     <script src="./js/authApp.js" type="module"></script>
     <script src="./js/commandModal.js" type="module"></script>
   </body>
