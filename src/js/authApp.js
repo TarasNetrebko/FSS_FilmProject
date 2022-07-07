@@ -121,8 +121,11 @@ export default function createModal(data) {
           </button>
         </div>
       </div>
-    </div>`)  
+    </div>`, {
+	closable: false
+})
   instance.show()
+  document.querySelector('body').style.overflow = "hidden";
   const watchedBtn = document.querySelector("#watchedBtn");
   const queueBtn = document.querySelector("#queueBtn");
   const removeFromWatchedBtn = document.querySelector("#removeFromWatchedBtn");
@@ -131,72 +134,72 @@ export default function createModal(data) {
   removeFromQueueBtn.addEventListener("click", removeFromQueue);
   watchedBtn.addEventListener("click", addFilmToWatched);
   queueBtn.addEventListener("click", addFilmToQueue);
-  function addFilmToWatched() {     
+  function addFilmToWatched() {
     set(ref(database, `users/${userId}/watchedMovies/${id}`), JSON.stringify(data.data));
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/watchedMovies`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-      watchedMovies = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        watchedMovies = snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
   function addFilmToQueue() {
     set(ref(database, `users/${userId}/queueOfMovies/${id}`), JSON.stringify(data.data));
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/queueOfMovies`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-      moviesInQueue = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        moviesInQueue = snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
   function removeFromWatched() {
     remove(ref(database, `users/${userId}/watchedMovies/${id}`))
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/watchedMovies`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-      watchedMovies = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        watchedMovies = snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
   function removeFromQueue() {
     remove(ref(database, `users/${userId}/queueOfMovies/${id}`))
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/queueOfMovies`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-      moviesInQueue = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        moviesInQueue = snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
-        instance.element().querySelector('.modal__close').onclick = instance.close;
-        document.addEventListener('keyup', closeModal);
-        function closeModal(event) {
-          if (event.key === 'Escape') {
-            instance.close();
-            document.removeEventListener('keyup', closeModal);
-          }
-        }
-        // document.querySelector('body').style.overflow = "hidden";
-        // document.querySelector('body').style.overflow = "auto";
+  document.querySelector('.modal__close').addEventListener("click", closeModal)
+  document.addEventListener('keyup', closeModal);
+  function closeModal(event) {
+    if (event.key === 'Escape' || event.currentTarget.classList.contains("modal__close")) {
+      instance.closable
+      document.querySelector('body').style.overflow = "auto";
+      instance.close();
+      document.removeEventListener('keyup', closeModal);
+    }
+  }
 }
   
 const signInBtn = document.querySelector("#signInBtn");

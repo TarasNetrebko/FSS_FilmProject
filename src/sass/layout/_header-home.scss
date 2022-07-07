@@ -1,15 +1,47 @@
 .container.header-home {
-  background-color: var(--background-backout);
-  background-image: url('/src/images/header-home-480px.svg');
-  background-size: cover;
+  max-width: 100%;
+  height: 230px;
+
+  background-image: url('/src/images/header-home320.jpg');
+  background-repeat: no-repeat;
   background-position: center;
+  background-size: 320px 230px;
+  background-size: cover;
+
+  @media screen and (min-device-pixel-ratio: 2),
+    screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and (-o-min-device-pixel-ratio: 2/1),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    background-image: url('/src/images/header-home320@2x.webp');
+  }
 
   @include tab {
-    background-image: url('/src/images/header-home-768px.svg');
+    height: 216px;
+
+    background-image: url('/src/images/header-home768.jpg');
+    background-size: 768px 216px;
+
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (-webkit-min-device-pixel-ratio: 2),
+      screen and (-o-min-device-pixel-ratio: 2/1),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: url('/src/images/header-home768@2x.webp');
+    }
   }
 
   @include desk {
-    background-image: url('/src/images/header-home-1280px.svg');
+    background-image: url('/src/images/header-home1280.jpg');
+    background-size: 1280px 216px;
+
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (-webkit-min-device-pixel-ratio: 2),
+      screen and (-o-min-device-pixel-ratio: 2/1),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: url('/src/images/header-home1280@2x.webp');
+    }
   }
 }
 
@@ -25,6 +57,10 @@
 }
 
 .header-home-btn__container {
+  position: absolute;
+  top: 10%;
+  right: 0;
+
   text-align: end;
   margin-bottom: 8px;
 }
