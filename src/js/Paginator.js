@@ -41,6 +41,10 @@ export default class Paginator {
     }
 
     render() {
+        this.divPagination.innerHTML = '';
+        if (this.dataLength <= this.pageSize) {
+            return;
+        }
 
         const lastPage = this.pageCount;
 
