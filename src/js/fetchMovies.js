@@ -1,6 +1,7 @@
 import fetchFromBackend from './fetchAPI';
 import createModal from './authApp';
 import Paginator from "./Paginator";
+import { onShowMovies } from './searchMovies';
 console.log(Paginator.getCurrentPage());
 
 
@@ -56,7 +57,16 @@ function getMovieInfo(id) {
 
 async function startfilm() {
   await getGenreList();
-  await getPopularMovies();
+
+  const params = new URLSearchParams(window.location.search);
+  const searchQuery = params.get('searchMovie');
+
+  if (searchQuery && searchQuery.length) {
+    await onShowMovies(searchQuery);
+  } else {
+    await getPopularMovies();
+  }
+
 }
 
 export default function renderMoviesCardsMarkup(obj) {
