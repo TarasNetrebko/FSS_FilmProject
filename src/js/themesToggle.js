@@ -26,7 +26,7 @@ function toggleHandler() {
 
 export function toggleStatus() {
   const sawedMessage = localStorage.getItem(STORAGE_KEY);
-  console.log(sawedMessage);
+  // console.log(sawedMessage);
     if (sawedMessage && sawedMessage.length !== 0 ) {
         body.classList.toggle("dark");
         changreBGToBlaack()

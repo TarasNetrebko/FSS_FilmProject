@@ -2,9 +2,6 @@ import fetchFromBackend from './fetchAPI';
 import createModal from './authApp';
 import Paginator from "./Paginator";
 import { onShowMovies } from './searchMovies';
-console.log(Paginator.getCurrentPage());
-
-
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;

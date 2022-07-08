@@ -137,3 +137,11 @@
     margin-left: 16px;
   }
 }
+
+.message {
+  text-align: center;
+  .message__link {
+    text-decoration: underline;
+    color: blue;
+  }
+}
