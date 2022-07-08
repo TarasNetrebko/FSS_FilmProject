@@ -18,15 +18,10 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
 let userId;
-export let watchedMovies;
-export let moviesInQueue;
+let watchedMovies;
+let moviesInQueue;
 
-export default function getQueue() {
-  return moviesInQueue;
-}
-export default function getWatched() {
-  return watchedMovies;
-}
+
 onAuthStateChanged(auth, (user) => {
   if (user) {    
     userId = user.uid;
