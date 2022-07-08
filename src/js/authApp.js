@@ -379,7 +379,8 @@ function logInModal() {
                     })
                     .catch((error) => {
                         const errorCode = error.code;
-                        const errorMessage = error.message;
+                      const errorMessage = error.message;
+                      alert("wrong password");
                     });
             
         document.querySelector("body").addEventListener("keydown", closeModal);
