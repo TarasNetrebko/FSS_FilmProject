@@ -1,14 +1,14 @@
 import createModal from './authApp';
 import * as basicLightbox from 'basiclightbox';
 
-// const queue = (JSON.parse(localStorage.getItem('queue')))?.map(el => JSON.parse(el));
-// const watched = (JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el));
-
 document.addEventListener("DOMContentLoaded", event => {
   document.querySelectorAll('.header-library__btn').forEach(el => el.addEventListener("click", renderLibrary));
-  document.querySelector('.queue').click();
+  imitateClick();  
 })
 
+function imitateClick() {
+  document.querySelector('.queue').click();
+}
 
 function renderLibrary(event) {
   const buttonEl = event.currentTarget;
@@ -55,3 +55,4 @@ function renderMoviesCardsMarkup(array) {
     });
   }
 }
+
