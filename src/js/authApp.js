@@ -20,7 +20,14 @@ const auth = getAuth();
 let userId;
 let watchedMovies;
 let moviesInQueue;
+const signInBtn = document.querySelector("#signInBtn");
+const logInBtn = document.querySelector("#logInBtn");
+const logOutBtn = document.querySelector("#logOutBtn");
+const displayEmail = document.querySelector("#displayEmail");
 
+signInBtn.addEventListener("click", signInModal);
+logInBtn.addEventListener("click", logInModal);
+logOutBtn.addEventListener("click", logOut);
 
 onAuthStateChanged(auth, (user) => {
   if (user) {    
@@ -130,7 +137,8 @@ export default function createModal(data) {
         document.querySelector('body').style.overflow = "auto";
       },
 	closable: true,
-})
+  })
+  
   instance.show()
   const watchedBtn = document.querySelector("#watchedBtn");
   const queueBtn = document.querySelector("#queueBtn");
@@ -140,13 +148,33 @@ export default function createModal(data) {
   removeFromQueueBtn.addEventListener("click", removeFromQueue);
   watchedBtn.addEventListener("click", addFilmToWatched);
   queueBtn.addEventListener("click", addFilmToQueue);
-
+  get(child(ref(getDatabase()), `users/${userId}/watchedMovies/${id}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        watchedBtn.classList.add("visually-hidden");
+        removeFromWatchedBtn.classList.remove("visually-hidden");
+      } else {
+        watchedBtn.classList.remove("visually-hidden");
+        removeFromWatchedBtn.classList.add("visually-hidden");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  get(child(ref(getDatabase()), `users/${userId}/queueOfMovies/${id}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        queueBtn.classList.add("visually-hidden");
+        removeFromQueueBtn.classList.remove("visually-hidden");
+      } else {
+        queueBtn.classList.remove("visually-hidden");
+        removeFromQueueBtn.classList.add("visually-hidden");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   function addFilmToWatched() {
     set(ref(database, `users/${userId}/watchedMovies/${id}`), JSON.stringify(data.data));
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/watchedMovies`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         watchedMovies = snapshot.val();
       } else {
         console.log("No data available");
@@ -154,6 +182,7 @@ export default function createModal(data) {
     }).catch((error) => {
       console.error(error);
     });
+    window.location.reload();
   }
   function addFilmToQueue() {
     set(ref(database, `users/${userId}/queueOfMovies/${id}`), JSON.stringify(data.data));
@@ -168,6 +197,7 @@ export default function createModal(data) {
     }).catch((error) => {
       console.error(error);
     });
+    window.location.reload();
   }
   function removeFromWatched() {
     remove(ref(database, `users/${userId}/watchedMovies/${id}`))
@@ -182,6 +212,7 @@ export default function createModal(data) {
     }).catch((error) => {
       console.error(error);
     });
+    window.location.reload();
   }
   function removeFromQueue() {
     remove(ref(database, `users/${userId}/queueOfMovies/${id}`))
@@ -196,6 +227,7 @@ export default function createModal(data) {
     }).catch((error) => {
       console.error(error);
     });
+    window.location.reload();
   }
   document.querySelector('.modal__close').addEventListener("click", closeModal)
   document.addEventListener('keyup', closeModal);
@@ -208,17 +240,6 @@ export default function createModal(data) {
     }
   }
 }
-  
-const signInBtn = document.querySelector("#signInBtn");
-const logInBtn = document.querySelector("#logInBtn");
-const logOutBtn = document.querySelector("#logOutBtn");
-const displayEmail = document.querySelector("#displayEmail");
-
-signInBtn.addEventListener("click", signInModal);
-logInBtn.addEventListener("click", logInModal);
-logOutBtn.addEventListener("click", logOut);
-
-
 function signInModal() {   
     
     const instance = basicLightbox.create(`
@@ -269,7 +290,8 @@ function signInModal() {
             const user = userCredential.user;
             set(ref(database, 'users/' + user.uid), {
                 email: email,
-                displayName: username,
+              displayName: username,
+              online: true,
             })
             signInForm.reset();
             displayEmail.innerHTML = `${auth.currentUser.email}`;
@@ -352,7 +374,6 @@ function logInModal() {
                     signInBtn.classList.add("visually-hidden");
                     logOutBtn.classList.remove("visually-hidden");
                     instance.close();
-                    Notiflix.Notify.success(`User: ${auth.currentUser.email} loged in!`)
                     })
                     .catch((error) => {
                         const errorCode = error.code;
@@ -389,6 +410,16 @@ function logOut() {
     localStorage.removeItem('queue');
     localStorage.removeItem('watched');
 }
+window.addEventListener("DOMContentLoaded", () => {
+  get(child(ref(getDatabase()), `users/${userId}/online`)).then((snapshot) => {
+    displayEmail.innerHTML = `${auth.currentUser.email}`;
+    logInBtn.classList.add("visually-hidden");
+    signInBtn.classList.add("visually-hidden");
+    logOutBtn.classList.remove("visually-hidden");
+  }).catch((error) => {
+    console.error(error);
+  });
+})
 
 // ------------------
 // QUEUE & WATCHED
