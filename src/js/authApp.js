@@ -298,7 +298,8 @@ function signInModal() {
             logInBtn.classList.add("visually-hidden");
             signInBtn.classList.add("visually-hidden");
             logOutBtn.classList.remove("visually-hidden");
-            instance.close()
+            window.location.reload();
+            // instance.close()
             Notiflix.Notify.success(`User: ${auth.currentUser.email} created!`);
     
         })
@@ -373,7 +374,8 @@ function logInModal() {
                     logInBtn.classList.add("visually-hidden");
                     signInBtn.classList.add("visually-hidden");
                     logOutBtn.classList.remove("visually-hidden");
-                    instance.close();
+                    window.location.reload();
+                    // instance.close();
                     })
                     .catch((error) => {
                         const errorCode = error.code;
@@ -401,12 +403,10 @@ function logOut() {
     signInBtn.classList.remove("visually-hidden");
     displayEmail.innerHTML = "";
     logOutBtn.classList.add("visually-hidden");
-    console.log("Signed out!");
-
+    document.querySelector("#nav-library").classList.add("visually-hidden");
   }).catch((error) => {
   // An error happened.
   });
-    Notiflix.Notify.info(`User: ${auth.currentUser.email} loged out!`);
     localStorage.removeItem('queue');
     localStorage.removeItem('watched');
 }
@@ -416,6 +416,7 @@ window.addEventListener("DOMContentLoaded", () => {
     logInBtn.classList.add("visually-hidden");
     signInBtn.classList.add("visually-hidden");
     logOutBtn.classList.remove("visually-hidden");
+    document.querySelector("#nav-library").classList.remove("visually-hidden");
   }).catch((error) => {
     console.error(error);
   });
