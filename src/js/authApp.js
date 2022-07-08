@@ -18,8 +18,8 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
 let userId;
-let watchedMovies;
-let moviesInQueue;
+export let watchedMovies;
+export let moviesInQueue;
 
 export default function getQueue() {
   return moviesInQueue;
@@ -31,20 +31,28 @@ onAuthStateChanged(auth, (user) => {
   if (user) {    
     userId = user.uid;
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `users/${userId}/watchedMovies`)).then((snapshot) => {
+    get(child(dbRef, `users/${userId}/watchedMovies`)).then(async (snapshot) => {
     if (snapshot.exists()) {
-      watchedMovies = snapshot.val();
+      watchedMovies = await snapshot.val();
+      localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
+
     } else {
       console.log("No data available");
+      // localStorage.removeItem('watched');
     }
   }).catch((error) => {
     console.error(error);
   });
-    get(child(dbRef, `users/${userId}/queueOfMovies`)).then((snapshot) => {
+    get(child(dbRef, `users/${userId}/queueOfMovies`)).then(async (snapshot) => {
     if (snapshot.exists()) {
-      moviesInQueue = snapshot.val();
+      moviesInQueue = await snapshot.val();
+      // Experiment
+      localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
+      // console.log(Object.values(moviesInQueue));
+      // End
     } else {
       console.log("No data available");
+      localStorage.removeItem('queue');
     }
   }).catch((error) => {
     console.error(error);
@@ -72,14 +80,12 @@ export default function createModal(data) {
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
                 </svg>
       </span>
-      <!--<div class="modal__img" style='background-image: url("https://image.tmdb.org/t/p/w500/${poster_path}");'>-->
       <img
         class="modal__img"
         src="https://image.tmdb.org/t/p/w500/${poster_path}"
         alt="${original_title} movie poster"
         class="modal__img"
       />
-      <!--</div>-->
       <div class="modal__description">
         <h2 class="modal__title">${original_title}</h2>
         <table class="modal__info">
@@ -122,10 +128,15 @@ export default function createModal(data) {
         </div>
       </div>
     </div>`, {
-	closable: false
+      onShow: (instance) => {
+        document.querySelector('body').style.overflow = "hidden";
+      },
+      onClose: (instance) => {
+        document.querySelector('body').style.overflow = "auto";
+      },
+	closable: true,
 })
   instance.show()
-  document.querySelector('body').style.overflow = "hidden";
   const watchedBtn = document.querySelector("#watchedBtn");
   const queueBtn = document.querySelector("#queueBtn");
   const removeFromWatchedBtn = document.querySelector("#removeFromWatchedBtn");
@@ -134,6 +145,7 @@ export default function createModal(data) {
   removeFromQueueBtn.addEventListener("click", removeFromQueue);
   watchedBtn.addEventListener("click", addFilmToWatched);
   queueBtn.addEventListener("click", addFilmToQueue);
+
   function addFilmToWatched() {
     set(ref(database, `users/${userId}/watchedMovies/${id}`), JSON.stringify(data.data));
     const dbRef = ref(getDatabase());
@@ -364,19 +376,23 @@ function logInModal() {
 }
 
 function logOut() {    
-            update(ref(database, 'users/' + auth.currentUser.uid), {
-                online: false,
-            });
-            signOut(auth).then(() => {
-                logInBtn.classList.remove("visually-hidden");
-                signInBtn.classList.remove("visually-hidden");
-                displayEmail.innerHTML = "";
-                logOutBtn.classList.add("visually-hidden"); 
-            // Sign-out successful.
-            }).catch((error) => {
-            // An error happened.
-            });
+  update(ref(database, 'users/' + auth.currentUser.uid), {
+    online: false,
+  });
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    logInBtn.classList.remove("visually-hidden");
+    signInBtn.classList.remove("visually-hidden");
+    displayEmail.innerHTML = "";
+    logOutBtn.classList.add("visually-hidden");
+    console.log("Signed out!");
+
+  }).catch((error) => {
+  // An error happened.
+  });
     Notiflix.Notify.info(`User: ${auth.currentUser.email} loged out!`);
+    localStorage.removeItem('queue');
+    localStorage.removeItem('watched');
 }
 
 // ------------------
@@ -390,3 +406,7 @@ function logOut() {
 // function addFilmToQueue() {
 //     console.log(filmInfo.id);
 // }
+
+
+// console.log(auth);
+// console.log(moviesInQueue);
