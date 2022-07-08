@@ -1,20 +1,25 @@
 import createModal from './authApp';
 import * as basicLightbox from 'basiclightbox';
 
-// const queue = (JSON.parse(localStorage.getItem('queue')))?.map(el => JSON.parse(el));
-// const watched = (JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el));
-
 document.addEventListener("DOMContentLoaded", event => {
-  document.querySelectorAll('.header-library__btn').forEach(el => el.addEventListener("click", renderLibrary));  
+  document.querySelectorAll('.header-library__btn').forEach(el => el.addEventListener("click", renderLibrary));
+  imitateClick();  
 })
 
+function imitateClick() {
+  document.querySelector('.queue').click();
+}
 
 function renderLibrary(event) {
   const buttonEl = event.currentTarget;
   if (buttonEl.textContent.trim() === "Queue") {
+    document.querySelector('.queue').classList.add("active");
+    document.querySelector('.watched').classList.remove("active");
     document.querySelector('.gallery').innerHTML = '';
     renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('queue')))?.map(el => JSON.parse(el)));
   } else {
+    document.querySelector('.queue').classList.remove("active");
+    document.querySelector('.watched').classList.add("active");
     document.querySelector('.gallery').innerHTML = '';
     renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el)));
   }
@@ -50,3 +55,4 @@ function renderMoviesCardsMarkup(array) {
     });
   }
 }
+
