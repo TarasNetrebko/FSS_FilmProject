@@ -5,7 +5,9 @@
   background-image: url('/src/images/header-home320.jpg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 320px 230px;
+  // background-size: 320px 230px;
+  background-size: 100% 100%;
+
   background-size: cover;
 
   @media screen and (min-device-pixel-ratio: 2),
@@ -20,7 +22,7 @@
     height: 216px;
 
     background-image: url('/src/images/header-home768.jpg');
-    background-size: 768px 216px;
+    // background-size: 768px 216px;
 
     @media screen and (min-device-pixel-ratio: 2),
       screen and (-webkit-min-device-pixel-ratio: 2),
@@ -33,7 +35,7 @@
 
   @include desk {
     background-image: url('/src/images/header-home1280.jpg');
-    background-size: 1280px 216px;
+    // background-size: 1280px 216px;
 
     @media screen and (min-device-pixel-ratio: 2),
       screen and (-webkit-min-device-pixel-ratio: 2),
