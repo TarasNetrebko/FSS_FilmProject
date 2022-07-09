@@ -9,10 +9,12 @@ backdrop.addEventListener('click', onBackdropClick);
 function onOpenModal() {
   window.addEventListener('keydown', onEscPress);
   document.body.classList.add('show-modal');
+  document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 }
 function onModalClose() {
   window.removeEventListener('keydown', onEscPress);
   document.body.classList.remove('show-modal');
+  document.getElementsByTagName('body')[0].style.overflow = 'scroll';
 }
 function onBackdropClick(event) {
   if (event.currentTarget === event.target) {
