@@ -12,18 +12,10 @@
       <div class="header-library__container">
         <div class="header-home-btn__container">
           <p id="displayEmail"></p>
-          <button
-            class="header-home-login__btn"
-            id="signInBtn"
-            type="button"
-          >
+          <button class="header-home-login__btn" id="signInBtn" type="button">
             Sign In
           </button>
-          <button
-            class="header-home-login__btn"
-            id="logInBtn"
-            type="button"
-          >
+          <button class="header-home-login__btn" id="logInBtn" type="button">
             Log In
           </button>
           <button
@@ -50,15 +42,14 @@
           <div>
             <ul class="nav-home__list">
               <li>
-                <a
-                  class="nav-home__link nav-home__link--append"
-                  href="/src/index.html"
-                  >Home</a
-                >
+                <a class="nav-home__link" href="/src/index.html">Home</a>
               </li>
-              <li>
+              <li
+                id="nav-library"
+                class="nav-home__link--append visually-hidden"
+              >
                 <a
-                  id="nav-library" class="visually-hidden nav-home__link nav-home__link--overlay"
+                  class="nav-home__link nav-home__link--overlay"
                   href="/src/my-library.html"
                   >My library</a
                 >
