@@ -1,8 +1,8 @@
 .scroll__button {
   position: fixed;
 
-  bottom: 50px;
-  right: 25px;
+  bottom: 15%;
+  right: 10%;
 
   visibility: hidden;
   opacity: 0;
@@ -11,20 +11,10 @@
   line-height: 20px;
 
   border-radius: 50%;
-  border: 1px solid red;
-
-  &:hover {
-    background-color: rgba(100%, 100%, 100%, 0.5);
-    transform: scale(1.1);
-  }
+  transform: rotate(-180deg);
 
   @include tab {
-    bottom: 90px;
-    right: 35px;
-  }
-
-  @include desk {
-    right: 40px;
+    right: 5%;
   }
 }
 
@@ -33,16 +23,20 @@
   height: 30px;
 
   fill: var(--secondary-accent-color);
-  transform: rotate(-180deg);
+
+  &:hover {
+    fill: green;
+    transform: scale(1.1);
+  }
 
   @include tab {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
 
   @include desk {
-    width: 55px;
-    height: 55px;
+    width: 40px;
+    height: 40px;
   }
 }
 

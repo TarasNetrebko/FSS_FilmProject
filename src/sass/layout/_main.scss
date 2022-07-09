@@ -1,6 +1,5 @@
 @media screen and (min-width: 320px) {
   .main {
-    position: relative;
     background: var(--white-color);
     font-family: 'Roboto';
     font-style: normal;
@@ -14,7 +13,7 @@
     background: #ffffff;
   }
 
-  .dark .gallery {    
+  .dark .gallery {
     background-color: var(--primary-background-color-dark-theme);
   }
 
