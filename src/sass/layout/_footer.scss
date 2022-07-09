@@ -2,7 +2,6 @@
     background-color: var(--secondary-background-color);
     padding-top: 30px;
     padding-bottom: 30px;
-    //width: 320px;
     margin: 0 auto;
         @include tab {
             width: 768px;
@@ -20,6 +19,14 @@
 .footer-text {
 @include font(14px, 400, 1.2);
 color: var(--secondary-font-color);
+
+}
+.footer-text_hover {
+    &:hover,
+        &:focus {
+            color: var(--primary-accent-color);
+        }
+
 }
 
 .dark .footer-text{
