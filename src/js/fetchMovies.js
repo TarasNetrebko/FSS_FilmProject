@@ -72,8 +72,7 @@ export default function renderMoviesCardsMarkup(obj) {
 
   const markup = array
     .map(({ id, poster_path, genre_ids, original_title, release_date }) => {
-      if (poster_path === null) {poster_url=no_img}
-      else{poster_url="https://image.tmdb.org/t/p/w500" + poster_path};
+      const poster_url = poster_path === null ? no_img : 'https://image.tmdb.org/t/p/w500' + poster_path;
       return `<article class="card" data-id="${id}">
                         <img
                           class="card__image"
