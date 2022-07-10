@@ -102,8 +102,7 @@ export default function createModal(data) {
     vote_average,
     vote_count,
   } = data.data;
-  if (poster_path === null) {poster_url=no_img}
-  else{poster_url="https://image.tmdb.org/t/p/w500" + poster_path};
+  const poster_url = poster_path === null ? no_img : "https://image.tmdb.org/t/p/w500" + poster_path;
   const instance = basicLightbox.create(
     `<div class="modal">
       <span class="modal__close">
