@@ -260,6 +260,7 @@ export default function createModal(data) {
         if (snapshot.exists()) {
           console.log(snapshot.val());
           watchedMovies = snapshot.val();
+          windows.location.reload();
         } else {
           console.log('No data available');
         }
@@ -277,6 +278,7 @@ export default function createModal(data) {
         if (snapshot.exists()) {
           console.log(snapshot.val());
           moviesInQueue = snapshot.val();
+          windows.location.reload();
         } else {
           console.log('No data available');
         }
