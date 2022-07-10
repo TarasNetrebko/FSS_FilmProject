@@ -1,2 +1,0 @@
-const e=document.querySelector("#openModal"),o=document.querySelector("#closeModal"),n=document.querySelector(".js-backdrop");function t(){window.removeEventListener("keydown",d),document.body.classList.remove("show-modal")}function d(e){"Escape"===e.code&&t()}e.addEventListener("click",(function(){window.addEventListener("keydown",d),document.body.classList.add("show-modal")})),o.addEventListener("click",t),n.addEventListener("click",(function(e){e.currentTarget===e.target&&t()}));
-//# sourceMappingURL=my-library.b98c85be.js.map

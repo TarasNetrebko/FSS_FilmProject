@@ -1,2 +1,0 @@
-!function(){var e=document.querySelector("#openModal"),n=document.querySelector("#closeModal"),o=document.querySelector(".js-backdrop");function t(){window.removeEventListener("keydown",d),document.body.classList.remove("show-modal")}function d(e){"Escape"===e.code&&t()}e.addEventListener("click",(function(){window.addEventListener("keydown",d),document.body.classList.add("show-modal")})),n.addEventListener("click",t),o.addEventListener("click",(function(e){e.currentTarget===e.target&&t()}))}();
-//# sourceMappingURL=my-library.9a194ecc.js.map
