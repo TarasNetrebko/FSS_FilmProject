@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import * as basicLightbox from 'basiclightbox';
 import '../../node_modules/basiclightbox/dist/basicLightbox.min.css';
 import Notiflix, { Notify } from 'notiflix';
+import no_img from '../images/blank-wanted-poster.jpg';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ",
@@ -75,6 +76,8 @@ export default function createModal(data) {
     vote_average,
     vote_count,
   } = data.data;
+  if (poster_path === null) {poster_url=no_img}
+  else{poster_url="https://image.tmdb.org/t/p/w500" + poster_path};
   const instance = basicLightbox.create(
     `<div class="modal">
       <span class="modal__close">
@@ -84,7 +87,7 @@ export default function createModal(data) {
       </span>
       <img
         class="modal__img"
-        src="https://image.tmdb.org/t/p/w500/${poster_path}"
+        src="${poster_url}"
         alt="${original_title} movie poster"
         class="modal__img"
       />

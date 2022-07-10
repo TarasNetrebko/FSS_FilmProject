@@ -1,5 +1,6 @@
 import createModal from './authApp';
 import * as basicLightbox from 'basiclightbox';
+import no_img from '../images/blank-wanted-poster.jpg';
 
 document.addEventListener("DOMContentLoaded", event => {
   document.querySelectorAll('.header-library__btn').forEach(el => el.addEventListener("click", renderLibrary));
@@ -31,11 +32,13 @@ function renderMoviesCardsMarkup(array) {
   Log in and choose them <a class="message__link" href="index.html">here</a> !</h2>`;
   } else {
     const markup = array?.map(({ id, poster_path, genres, original_title, release_date }) => {
+      if (poster_path === null) {poster_url=no_img}
+      else{poster_url="https://image.tmdb.org/t/p/w500" + poster_path};
       return `<article class="card" data-id="${id}">
                 <img
                   class="card__image"
                   loading="lazy"
-                  src="https://image.tmdb.org/t/p/w500${poster_path}"
+                  src="${poster_url}"
                   alt="${original_title} movie poster"
                 />
                 <p class="card__title">${original_title}</p>

@@ -2,6 +2,7 @@ import fetchFromBackend from './fetchAPI';
 import createModal from './authApp';
 import Paginator from "./Paginator";
 import { onShowMovies } from './searchMovies';
+import no_img from '../images/blank-wanted-poster.jpg';
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
@@ -71,11 +72,13 @@ export default function renderMoviesCardsMarkup(obj) {
 
   const markup = array
     .map(({ id, poster_path, genre_ids, original_title, release_date }) => {
+      if (poster_path === null) {poster_url=no_img}
+      else{poster_url="https://image.tmdb.org/t/p/w500" + poster_path};
       return `<article class="card" data-id="${id}">
                         <img
                           class="card__image"
                           loading="lazy"
-                          src="https://image.tmdb.org/t/p/w500${poster_path}"
+                          src="${poster_url}"
                           alt="${original_title} movie poster"
                         />
                       <p class="card__title">${original_title}</p>
