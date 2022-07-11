@@ -4,7 +4,8 @@ import Paginator from "./Paginator";
 import { onShowMovies } from './searchMovies';
 import no_img from '../images/blank-wanted-poster.jpg';
 import { save, load } from "./storage"
-import { scrollToTop } from './scroll-button';
+// import { scrollToTop } from './scroll-button';
+import scrollToTop from './scroll-button';
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
@@ -132,7 +133,11 @@ document.addEventListener('changePage', event => {
     onShowMovies(query);
   }
 
-  scrollToTop()
+  // scrollToTop()
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 
 });
 
