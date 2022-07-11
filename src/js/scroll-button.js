@@ -5,7 +5,7 @@ function eventHandler() {
   scrollBtn.addEventListener('click', scrollToTop);
 }
 
-function scrollToTop() {
+export function scrollToTop() {
   window.scrollTo({
     top: 0,
     behavior: 'smooth',

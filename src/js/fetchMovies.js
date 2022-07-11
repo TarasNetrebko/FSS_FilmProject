@@ -4,6 +4,7 @@ import Paginator from "./Paginator";
 import { onShowMovies } from './searchMovies';
 import no_img from '../images/blank-wanted-poster.jpg';
 import { save, load } from "./storage"
+import { scrollToTop } from './scroll-button';
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
@@ -15,9 +16,9 @@ function GenreString(GenreId) {
     for (const Genre of GenreArray) {
       if (GenreId.includes(Genre.id)) {
         if (GenreList.length > 0) {
-          if (countList < 2){
+          if (countList < 2) {
             GenreList = GenreList + ', ' + Genre.name;
-          }else{
+          } else {
             GenreList = GenreList + ', Other';
           }
         } else {
@@ -36,7 +37,7 @@ function GenreString(GenreId) {
 
 async function getGenreById(obj) {
   GenreArray = await obj.data.genres;
-  save("StorageGenreArray",GenreArray);
+  save("StorageGenreArray", GenreArray);
 }
 
 function getGenreList() {
@@ -62,8 +63,8 @@ function getMovieInfo(id) {
 
 async function startfilm() {
   console.log("j")
-  GenreArray=load("StorageGenreArray");
-  if (!GenreArray){
+  GenreArray = load("StorageGenreArray");
+  if (!GenreArray) {
     await getGenreList();
   }
 
@@ -79,7 +80,13 @@ async function startfilm() {
 }
 
 export default function renderMoviesCardsMarkup(obj) {
+  const gallery = document.querySelector('.gallery');
+
   const array = obj.data.results;
+
+  if (array.length) {
+    gallery.innerHTML = '';
+  }
 
   const markup = array
     .map(({ id, poster_path, genre_ids, original_title, release_date }) => {
@@ -115,6 +122,14 @@ startfilm();
 
 
 document.addEventListener('changePage', event => {
-  getPopularMovies();
-})
+  const query = document.querySelector('[name="searchMovie"]').value.trim();
+  if (query === '') {
+    getPopularMovies();
+  } else {
+    onShowMovies(query);
+  }
+
+  scrollToTop()
+
+});
 

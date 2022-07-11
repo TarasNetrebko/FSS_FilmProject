@@ -179,8 +179,9 @@ export default class Paginator {
 
         const params = new URLSearchParams(window.location.search);
         params.delete('page');
-        params.append('page', page);
-
+        if (page > 1) {
+            params.append('page', page);
+        }
         return `${window.location.pathname}?${params.toString()}`;
     }
 }
