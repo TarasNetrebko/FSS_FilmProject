@@ -76,10 +76,12 @@ body.show-modal .modal {
 }
 
 .modal-team-title {
+    color: var(--accent-color-btn);
     text-align: center;
     @include font(30px, 400, 1.2);
 }
 .modal-team-article {
+    color: var(--accent-color-btn);
     text-align: center;
     @include font(35px, 500, 1.2);
 }
