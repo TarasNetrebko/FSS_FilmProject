@@ -20,7 +20,7 @@ body.show-modal .modal {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.3);
-    z-index: 999;
+    z-index: 2;
 
     pointer-events: none;
     opacity: 0;
@@ -66,6 +66,10 @@ body.show-modal .modal {
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.dark .modal-team {
+    background-color: var(--secondary-background-color-dark-theme);
+}
 .modal-team-box-two {
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 15px;
@@ -75,14 +79,27 @@ body.show-modal .modal {
     background-color: var(--secondary-background-color);
 }
 
+.dark .modal-team-box-two {
+    background-color: var(--primary-background-color-dark-theme);
+    color: var(--primary-font-color-dark-theme);
+}
+
 .modal-team-title {
     text-align: center;
     @include font(30px, 400, 1.2);
+    color: var(--accent-color-btn);
 }
+
 .modal-team-article {
     text-align: center;
     @include font(35px, 500, 1.2);
+    color: var(--accent-color-btn);
 }
+
+.dark .modal-team-article {
+    color: var(--primary-font-color-dark-theme);
+}
+
 .modal-team-article-one {
     @include font(18px, 500, 1.2);
     text-align:center;

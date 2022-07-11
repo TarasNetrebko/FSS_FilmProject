@@ -5,7 +5,9 @@
     justify-content: center;
     padding-bottom: 60px;
     // час прийшов
-
+    @include tab {
+        padding-bottom: 60px;
+    }
     &__button {
             background-color: #fff;
             justify-content: center;
