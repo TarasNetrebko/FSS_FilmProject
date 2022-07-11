@@ -113,3 +113,8 @@ export default function renderMoviesCardsMarkup(obj) {
 
 startfilm();
 
+
+document.addEventListener('changePage', event => {
+  getPopularMovies();
+})
+

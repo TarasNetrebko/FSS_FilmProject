@@ -15,7 +15,25 @@ export default class Paginator {
         this.dataLength = dataLength;
 
         this.divPagination = document.querySelector('.pagination');
+        this.initEvents();
     }
+
+    initEvents() {
+        this.divPagination.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (e.target.classList.contains('pagination__button-link')) {
+                this.page = parseInt(e.target.text);
+                history.pushState(null, null, this.renderLinkPage(this.page));
+                document.dispatchEvent(new CustomEvent("changePage", {
+                    detail: {
+                        page: this.page
+                    }
+                }));
+                this.render();
+            }
+        });
+    }
+
 
     static getCurrentPage() {
         const params = new URLSearchParams(window.location.search);
