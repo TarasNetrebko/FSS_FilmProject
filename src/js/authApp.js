@@ -382,7 +382,7 @@ function signInModal() {
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        Notiflix.Notify.failure('smth wrong!');
+        Notiflix.Notify.failure(error.message);
       });
   }
   document.querySelector('body').addEventListener('keydown', closeModal);
@@ -466,7 +466,7 @@ function logInModal() {
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert('wrong password');
+        Notiflix.Notify.failure(error.message);
       });
 
     document.querySelector('body').addEventListener('keydown', closeModal);
