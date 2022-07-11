@@ -20,6 +20,7 @@ import {
 import * as basicLightbox from 'basiclightbox';
 import '../../node_modules/basiclightbox/dist/basicLightbox.min.css';
 import Notiflix, { Notify } from 'notiflix';
+import imitateClick from './my-library';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ',
@@ -60,7 +61,6 @@ onAuthStateChanged(auth, user => {
           );
         } else {
           console.log('No data available');
-          // localStorage.removeItem('watched');
         }
       })
       .catch(error => {
@@ -75,8 +75,6 @@ onAuthStateChanged(auth, user => {
             'queue',
             JSON.stringify(Object.values(moviesInQueue))
           );
-          // console.log(Object.values(moviesInQueue));
-          // End
         } else {
           console.log('No data available');
           localStorage.removeItem('queue');
@@ -265,6 +263,7 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
+    imitateClick();
     window.location.reload();
   }
   function removeFromQueue() {
@@ -282,6 +281,7 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
+    imitateClick();
     window.location.reload();
   }
   document.querySelector('.modal__close').addEventListener('click', closeModal);
@@ -491,6 +491,7 @@ function logOut() {
     });
   localStorage.removeItem('queue');
   localStorage.removeItem('watched');
+  localStorage.removeItem('current_page');
 }
 window.addEventListener('DOMContentLoaded', () => {
   get(child(ref(getDatabase()), `users/${userId}/online`))

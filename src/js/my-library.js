@@ -6,8 +6,13 @@ document.addEventListener("DOMContentLoaded", event => {
   imitateClick();  
 })
 
-function imitateClick() {
-  document.querySelector('.queue').click();
+export default function imitateClick() {
+  if (!localStorage.getItem('current_page')) {
+    document.querySelector('.queue').click();
+  } else {
+    const current_page = localStorage.getItem('current_page');
+    document.querySelector("." + current_page).click();
+  }
 }
 
 function renderLibrary(event) {
@@ -17,11 +22,13 @@ function renderLibrary(event) {
     document.querySelector('.watched').classList.remove("active");
     document.querySelector('.gallery').innerHTML = '';
     renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('queue')))?.map(el => JSON.parse(el)));
+    localStorage.setItem("current_page", "queue");
   } else {
     document.querySelector('.queue').classList.remove("active");
     document.querySelector('.watched').classList.add("active");
     document.querySelector('.gallery').innerHTML = '';
     renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el)));
+    localStorage.setItem("current_page", "watched");
   }
 }
 
