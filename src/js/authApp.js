@@ -105,6 +105,8 @@ export default function createModal(data) {
     vote_count,
   } = data.data;
   const poster_url = poster_path === null ? no_img : "https://image.tmdb.org/t/p/w500" + poster_path;
+  const film_genres = genres.length === 0 ? "No information" : genres .map(el => `${el.name}`) .join(', ');
+  const film_overview = overview.length === 0 ? "No overview." : overview;
   const instance = basicLightbox.create(
     `<div class="modal">
       <span class="modal__close">
@@ -136,14 +138,12 @@ export default function createModal(data) {
             </tr>
             <tr>
               <td>Genre</td>
-              <td class="modal__genre">${genres
-                .map(el => `${el.name}`)
-                .join(', ')}</td>
+              <td class="modal__genre">${film_genres}</td>
             </tr>
           </tbody>
         </table>
         <h3 class="modal__plot-title">About</h3>
-        <p class="modal__plot">${overview}</p>
+        <p class="modal__plot">${film_overview}</p>
         <div class="modal__button-wrapper">
           <button id="watchedBtn" type="button" class="modal__button watched visually-hidden">
             Add to watched
