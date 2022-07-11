@@ -94,7 +94,7 @@ export default function renderMoviesCardsMarkup(obj) {
   const markup = array
     .map(({ id, poster_path, genre_ids, original_title, release_date }) => {
       const poster_url = poster_path === null ? no_img : 'https://image.tmdb.org/t/p/w500' + poster_path;
-      const film_date = release_date.split('-')[0].length === 4 ? release_date.split('-')[0] : "Release year unknown";
+      const film_date = release_date ? release_date.split('-')[0] : "Release year unknown";
       return `<article class="card" data-id="${id}">
                         <img
                           class="card__image"
