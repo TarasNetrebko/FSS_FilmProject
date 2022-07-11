@@ -87,11 +87,13 @@ body.show-modal .modal {
 .modal-team-title {
     text-align: center;
     @include font(30px, 400, 1.2);
+    color: var(--accent-color-btn);
 }
 
 .modal-team-article {
     text-align: center;
     @include font(35px, 500, 1.2);
+    color: var(--accent-color-btn);
 }
 
 .dark .modal-team-article {
