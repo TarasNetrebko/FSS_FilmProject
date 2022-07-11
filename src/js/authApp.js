@@ -35,6 +35,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
+let userEmail;
 let userId;
 let watchedMovies;
 let moviesInQueue;
@@ -50,6 +51,7 @@ logOutBtn.addEventListener('click', logOut);
 onAuthStateChanged(auth, user => {
   if (user) {
     userId = user.uid;
+    userEmail = user.email;
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/watchedMovies`))
       .then(async snapshot => {
@@ -372,9 +374,10 @@ function signInModal() {
         logInBtn.classList.add('visually-hidden');
         signInBtn.classList.add('visually-hidden');
         logOutBtn.classList.remove('visually-hidden');
+        alert(`User: ${auth.currentUser.email} created!`);
         window.location.reload();
         // instance.close()
-        Notiflix.Notify.success(`User: ${auth.currentUser.email} created!`);
+        
       })
       .catch(error => {
         const errorCode = error.code;
@@ -487,6 +490,7 @@ function logOut() {
       logInBtn.classList.remove('visually-hidden');
       signInBtn.classList.remove('visually-hidden');
       displayEmail.innerHTML = '';
+      userEmail = null;
       logOutBtn.classList.add('visually-hidden');
       document.querySelector('#nav-library').classList.add('visually-hidden');
     })
@@ -499,7 +503,7 @@ function logOut() {
 window.addEventListener('DOMContentLoaded', () => {
   get(child(ref(getDatabase()), `users/${userId}/online`))
     .then(snapshot => {
-      if (auth.currentUser.email) {
+      if (userEmail) {
         displayEmail.innerHTML = `${auth.currentUser.email.split('@')[0]}`;
         logInBtn.classList.add('visually-hidden');
         signInBtn.classList.add('visually-hidden');
