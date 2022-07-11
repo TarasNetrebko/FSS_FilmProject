@@ -19,19 +19,22 @@ export default class Paginator {
     }
 
     initEvents() {
-        this.divPagination.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (e.target.classList.contains('pagination__button-link')) {
-                this.page = parseInt(e.target.dataset.page);
-                history.pushState(null, null, this.renderLinkPage(this.page));
-                document.dispatchEvent(new CustomEvent("changePage", {
-                    detail: {
-                        page: this.page
-                    }
-                }));
-                this.render();
-            }
-        });
+        if (!window.calledOnce) {
+            window.calledOnce = true;
+            this.divPagination.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (e.target.classList.contains('pagination__button-link')) {
+                    this.page = parseInt(e.target.dataset.page);
+                    history.pushState(null, null, this.renderLinkPage(this.page));
+                    document.dispatchEvent(new CustomEvent("changePage", {
+                        detail: {
+                            page: this.page
+                        }
+                    }));
+                    this.render();
+                }
+            });
+        }
     }
 
 
