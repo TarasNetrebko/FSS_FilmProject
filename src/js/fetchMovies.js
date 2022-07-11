@@ -3,6 +3,7 @@ import createModal from './authApp';
 import Paginator from "./Paginator";
 import { onShowMovies } from './searchMovies';
 import no_img from '../images/blank-wanted-poster.jpg';
+import { save, load } from "./storage"
 
 const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
@@ -14,7 +15,11 @@ function GenreString(GenreId) {
     for (const Genre of GenreArray) {
       if (GenreId.includes(Genre.id)) {
         if (GenreList.length > 0) {
-          GenreList = GenreList + ', ' + Genre.name;
+          if (countList < 2){
+            GenreList = GenreList + ', ' + Genre.name;
+          }else{
+            GenreList = GenreList + ', Other';
+          }
         } else {
           GenreList = Genre.name;
         }
@@ -26,10 +31,12 @@ function GenreString(GenreId) {
     }
     return GenreList;
   }
+  return "no genre";
 }
 
 async function getGenreById(obj) {
   GenreArray = await obj.data.genres;
+  save("StorageGenreArray",GenreArray);
 }
 
 function getGenreList() {
@@ -54,7 +61,11 @@ function getMovieInfo(id) {
 }
 
 async function startfilm() {
-  await getGenreList();
+  console.log("j")
+  GenreArray=load("StorageGenreArray");
+  if (!GenreArray){
+    await getGenreList();
+  }
 
   const params = new URLSearchParams(window.location.search);
   const searchQuery = params.get('searchMovie');
