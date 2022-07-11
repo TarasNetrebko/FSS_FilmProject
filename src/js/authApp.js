@@ -143,16 +143,16 @@ export default function createModal(data) {
         <h3 class="modal__plot-title">About</h3>
         <p class="modal__plot">${overview}</p>
         <div class="modal__button-wrapper">
-          <button id="watchedBtn" type="button" class="modal__button watched">
+          <button id="watchedBtn" type="button" class="modal__button watched visually-hidden">
             Add to watched
           </button>
-          <button id="queueBtn" type="button" class="modal__button queue">
+          <button id="queueBtn" type="button" class="modal__button queue visually-hidden">
             Add to queue
           </button>
-          <button id="removeFromWatchedBtn" type="button" class="modal__button watched">
+          <button id="removeFromWatchedBtn" type="button" class="modal__button watched visually-hidden">
             Remove from watched
           </button>
-          <button id="removeFromQueueBtn" type="button" class="modal__button queue">
+          <button id="removeFromQueueBtn" type="button" class="modal__button queue visually-hidden">
             Remove From queue
           </button>
         </div>
@@ -179,18 +179,16 @@ export default function createModal(data) {
   watchedBtn.addEventListener('click', addFilmToWatched);
   queueBtn.addEventListener('click', addFilmToQueue);
   // Experimental
-  queueBtn.classList.add('visually-hidden');
-  watchedBtn.classList.add('visually-hidden');
-  removeFromWatchedBtn.classList.add('visually-hidden');
-  removeFromQueueBtn.classList.add('visually-hidden');
   get(child(ref(getDatabase()), `users/${userId}/watchedMovies/${id}`))
     .then(snapshot => {
       if (userId) {
         if (snapshot.exists()) {
+          watchedBtn.classList.remove('visually-hidden');
           watchedBtn.classList.add('visually-hidden');
           removeFromWatchedBtn.classList.remove('visually-hidden');
         } else {
           watchedBtn.classList.remove('visually-hidden');
+          removeFromWatchedBtn.classList.remove('visually-hidden');
           removeFromWatchedBtn.classList.add('visually-hidden');
         }
       }
@@ -202,10 +200,12 @@ export default function createModal(data) {
     .then(snapshot => {
       if (userId) {
         if (snapshot.exists()) {
+          queueBtn.classList.remove('visually-hidden');
           queueBtn.classList.add('visually-hidden');
           removeFromQueueBtn.classList.remove('visually-hidden');
         } else {
           queueBtn.classList.remove('visually-hidden');
+          removeFromQueueBtn.classList.remove('visually-hidden');
           removeFromQueueBtn.classList.add('visually-hidden');
         }
       }
