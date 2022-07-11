@@ -10,6 +10,9 @@ const API_KEY = '641afe219016a353adafbc0b4f44c0fe';
 let GenreArray;
 
 function GenreString(GenreId) {
+  if (GenreId.length === 0) {
+    return "No information";
+  }
   if (GenreArray) {
     let GenreList = '';
     let countList = 0;
@@ -62,7 +65,6 @@ function getMovieInfo(id) {
 }
 
 async function startfilm() {
-  console.log("j")
   GenreArray = load("StorageGenreArray");
   if (!GenreArray) {
     await getGenreList();
@@ -91,6 +93,7 @@ export default function renderMoviesCardsMarkup(obj) {
   const markup = array
     .map(({ id, poster_path, genre_ids, original_title, release_date }) => {
       const poster_url = poster_path === null ? no_img : 'https://image.tmdb.org/t/p/w500' + poster_path;
+      const film_date = release_date.split('-')[0].length === 4 ? release_date.split('-')[0] : "Release year unknown";
       return `<article class="card" data-id="${id}">
                         <img
                           class="card__image"
@@ -100,7 +103,7 @@ export default function renderMoviesCardsMarkup(obj) {
                         />
                       <p class="card__title">${original_title}</p>
                       <p class="card__genres">
-                        ${GenreString(genre_ids)} | <span class="card__year">${release_date.split('-')[0]
+                        ${GenreString(genre_ids)} | <span class="card__year">${film_date
         }</span>
                       </p>
                     </article>`;
