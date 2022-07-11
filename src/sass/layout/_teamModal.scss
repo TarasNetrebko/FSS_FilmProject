@@ -87,7 +87,7 @@ body.show-modal .modal {
 .modal-team-title {
     text-align: center;
     @include font(30px, 400, 1.2);
-    color: var(--accent-color-btn);
+    color: var(--primary-font-color);
 }
 
 .modal-team-article {
@@ -97,6 +97,9 @@ body.show-modal .modal {
 }
 
 .dark .modal-team-article {
+    color: var(--accent-color-btn);
+}
+.dark .modal-team-title {
     color: var(--primary-font-color-dark-theme);
 }
 
@@ -108,6 +111,7 @@ body.show-modal .modal {
     @include font(15px, 400, 1.2);
     text-align: center;
     margin-bottom: 10px;
+    color: var(--accent-color-btn);
 }
 .modal-team-close {
     position: absolute;
