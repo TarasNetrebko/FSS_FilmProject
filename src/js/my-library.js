@@ -11,7 +11,8 @@ function imitateClick() {
     document.querySelector('.queue').click();
   } else {
     const current_page = localStorage.getItem('current_page');
-    document.querySelector("." + current_page).click();
+    // console.log(document.querySelector("." + current_page));
+    document.querySelector("." + current_page)?.click();
   }
 }
 
@@ -30,8 +31,7 @@ function renderLibrary(event) {
     // document.querySelector('.gallery').innerHTML = '';
     localStorage.setItem("current_page", "watched");
     renderMoviesCardsMarkup();
-    // renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el)));
-    
+    // renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el)));    
   }
 }
 
@@ -56,7 +56,7 @@ export default function renderMoviesCardsMarkup() {
                 ${genres.map(el => " " + el.name)} | <span class="card__year">${release_date.split('-')[0]}</span>
                 </p>
               </article>`}).join('');
-    document.querySelector('.gallery').insertAdjacentHTML('beforeend', markup);
+    document.querySelector('.gallery.library').insertAdjacentHTML('beforeend', markup);
     document.querySelectorAll('.card').forEach(el => {
       el.addEventListener('click', event => {
         const movieId = Number(event.currentTarget.dataset.id);

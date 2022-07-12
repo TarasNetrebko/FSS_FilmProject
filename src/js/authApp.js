@@ -34,6 +34,7 @@ const firebaseConfig = {
   messagingSenderId: '735705088230',
   appId: '1:735705088230:web:5f28a2933df786d005bb27',
 };
+
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
@@ -59,10 +60,9 @@ onAuthStateChanged(auth, user => {
       .then(async snapshot => {
         if (snapshot.exists()) {
           watchedMovies = await snapshot.val();
-          localStorage.setItem(
-            'watched',
-            JSON.stringify(Object.values(watchedMovies))
-          );
+          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
+
+          renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
           localStorage.removeItem('watched');
@@ -77,10 +77,7 @@ onAuthStateChanged(auth, user => {
         if (snapshot.exists()) {
           moviesInQueue = await snapshot.val();
           // Experiment
-          localStorage.setItem(
-            'queue',
-            JSON.stringify(Object.values(moviesInQueue))
-          );
+          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
         } else {
           console.log('No data available');
           localStorage.removeItem('queue');
@@ -223,9 +220,11 @@ export default function createModal(data) {
     );
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/watchedMovies`))
-      .then(snapshot => {
+      .then(async snapshot => {
         if (snapshot.exists()) {
-          watchedMovies = snapshot.val();
+          watchedMovies = await snapshot.val();
+          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
+
         } else {
           console.log('No data available');
         }
@@ -233,7 +232,7 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
-    window.location.reload();
+    instance.close();
   }
   function addFilmToQueue() {
     set(
@@ -242,10 +241,11 @@ export default function createModal(data) {
     );
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/queueOfMovies`))
-      .then(snapshot => {
+      .then(async snapshot => {
         if (snapshot.exists()) {
           console.log(snapshot.val());
-          moviesInQueue = snapshot.val();
+          moviesInQueue = await snapshot.val();
+          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
         } else {
           console.log('No data available');
         }
@@ -253,26 +253,31 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
-    window.location.reload();
+    instance.close();
   }
   function removeFromWatched() {
     remove(ref(database, `users/${userId}/watchedMovies/${id}`));
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/watchedMovies`))
-      .then(snapshot => {
+      .then(async snapshot => {
         if (snapshot.exists()) {
           console.log(snapshot.val());
-          watchedMovies = snapshot.val();
-          windows.location.reload();
+          watchedMovies = await snapshot.val();
+          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
+          instance.close();
+          renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
+          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
+
+          instance.close();
+          renderMoviesCardsMarkup();
         }
       })
       .catch(error => {
         console.error(error);
       });
-    // imitateClick();
-    window.location.reload();
+    
     renderMoviesCardsMarkup();
 
   }
@@ -280,20 +285,24 @@ export default function createModal(data) {
     remove(ref(database, `users/${userId}/queueOfMovies/${id}`));
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/queueOfMovies`))
-      .then(snapshot => {
+      .then(async snapshot => {
         if (snapshot.exists()) {
           console.log(snapshot.val());
-          moviesInQueue = snapshot.val();
-          window.location.reload();
+          moviesInQueue = await snapshot.val();
+          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
+          instance.close();
+          renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
+          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
+
+          instance.close();
+          renderMoviesCardsMarkup();
         }
       })
       .catch(error => {
         console.error(error);
       });
-    // imitateClick();
-    window.location.reload();
     renderMoviesCardsMarkup();
 
   }
