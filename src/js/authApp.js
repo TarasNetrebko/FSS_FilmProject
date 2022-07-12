@@ -243,7 +243,7 @@ export default function createModal(data) {
     get(child(dbRef, `users/${userId}/queueOfMovies`))
       .then(async snapshot => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           moviesInQueue = await snapshot.val();
           localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
         } else {
@@ -262,7 +262,7 @@ export default function createModal(data) {
     get(child(dbRef, `users/${userId}/watchedMovies`))
       .then(async snapshot => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           watchedMovies = await snapshot.val();
           localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
           instance.close();
@@ -288,7 +288,7 @@ export default function createModal(data) {
     get(child(dbRef, `users/${userId}/queueOfMovies`))
       .then(async snapshot => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           moviesInQueue = await snapshot.val();
           localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
           instance.close();
