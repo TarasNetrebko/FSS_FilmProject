@@ -26,20 +26,25 @@ body.show-modal .modal {
 }
 
 .modal-team {
-  position: relative;
-  overflow: auto;
-  max-height: 100vh;
-  max-width: 265px;
-  padding: 24px;
-  border-radius: 4px;
-  width: 100vw;
-  min-height: 320px;
-  background-color: #fff;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 8px 2px 1px -1px rgba(0, 0, 0, 0.12);
-  transform: scale(1);
-  transition: transform 280ms ease-in-out;
-  background-color: var(--primary-background-color);
+    display: none;    
+    position: relative;
+    overflow: auto;
+    max-height: 100vh;
+    max-width: 265px;
+    padding: 24px;
+    border-radius: 4px;
+    width: 100vw;
+    min-height: 320px;
+    background-color: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 8px 2px 1px -1px rgba(0,0,0,0.12);
+    transform: scale(1);
+    transition: transform 280ms ease-in-out;
+    background-color: var(--primary-background-color);
+    
+    @include tab() {
+        max-width: 675px;
+    }
 
   @include tab() {
     max-width: 675px;
