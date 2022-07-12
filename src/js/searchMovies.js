@@ -24,7 +24,8 @@ function loadMovies(response) {
 $refs.form.addEventListener('submit', event => {
   event.preventDefault();
 
-  history.pushState(null, null, '/');
+  history.pushState(null, null, window.location.pathname
+  );
   const query = $refs.searchInput.value.trim();
   onShowMovies(query);
 });
