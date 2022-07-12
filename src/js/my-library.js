@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", event => {
   imitateClick();  
 })
 
-export default function imitateClick() {
+function imitateClick() {
   if (!localStorage.getItem('current_page')) {
     document.querySelector('.queue').click();
   } else {
@@ -20,19 +20,25 @@ function renderLibrary(event) {
   if (buttonEl.textContent.trim() === "Queue") {
     document.querySelector('.queue').classList.add("active");
     document.querySelector('.watched').classList.remove("active");
-    document.querySelector('.gallery').innerHTML = '';
-    renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('queue')))?.map(el => JSON.parse(el)));
+    // document.querySelector('.gallery').innerHTML = '';
+    // renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('queue')))?.map(el => JSON.parse(el)));
     localStorage.setItem("current_page", "queue");
+    renderMoviesCardsMarkup();
   } else {
     document.querySelector('.queue').classList.remove("active");
     document.querySelector('.watched').classList.add("active");
-    document.querySelector('.gallery').innerHTML = '';
-    renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el)));
+    // document.querySelector('.gallery').innerHTML = '';
     localStorage.setItem("current_page", "watched");
+    renderMoviesCardsMarkup();
+    // renderMoviesCardsMarkup((JSON.parse(localStorage.getItem('watched')))?.map(el => JSON.parse(el)));
+    
   }
 }
 
-function renderMoviesCardsMarkup(array) {
+export default function renderMoviesCardsMarkup() {
+  const current_page = localStorage.getItem('current_page');
+  const array = (JSON.parse(localStorage.getItem(current_page)))?.map(el => JSON.parse(el));
+  document.querySelector('.gallery.library').innerHTML = '';
   if (!array) {
     document.querySelector('.gallery').innerHTML = `<h2 class="message">Sorry! Here is no movies yet!
   Log in and choose them <a class="message__link" href="index.html">here</a> !</h2>`;

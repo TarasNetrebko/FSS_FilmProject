@@ -20,7 +20,9 @@ import {
 import * as basicLightbox from 'basiclightbox';
 import '../../node_modules/basiclightbox/dist/basicLightbox.min.css';
 import Notiflix, { Notify } from 'notiflix';
-import imitateClick from './my-library';
+import renderMoviesCardsMarkup from './my-library';
+import no_img from '../images/blank-wanted-poster.jpg';
+
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ',
@@ -61,6 +63,8 @@ onAuthStateChanged(auth, user => {
           );
         } else {
           console.log('No data available');
+          localStorage.removeItem('watched');
+
         }
       })
       .catch(error => {
@@ -99,6 +103,7 @@ export default function createModal(data) {
     vote_average,
     vote_count,
   } = data.data;
+  const poster_url = poster_path === null ? no_img : "https://image.tmdb.org/t/p/w500" + poster_path;
   const instance = basicLightbox.create(
     `<div class="modal">
       <span class="modal__close">
@@ -108,7 +113,7 @@ export default function createModal(data) {
       </span>
       <img
         class="modal__img"
-        src="https://image.tmdb.org/t/p/w500/${poster_path}"
+        src="${poster_url}"
         alt="${original_title} movie poster"
         class="modal__img"
       />
@@ -256,6 +261,7 @@ export default function createModal(data) {
         if (snapshot.exists()) {
           console.log(snapshot.val());
           watchedMovies = snapshot.val();
+          windows.location.reload();
         } else {
           console.log('No data available');
         }
@@ -263,8 +269,10 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
-    imitateClick();
+    // imitateClick();
     window.location.reload();
+    renderMoviesCardsMarkup();
+
   }
   function removeFromQueue() {
     remove(ref(database, `users/${userId}/queueOfMovies/${id}`));
@@ -274,6 +282,7 @@ export default function createModal(data) {
         if (snapshot.exists()) {
           console.log(snapshot.val());
           moviesInQueue = snapshot.val();
+          window.location.reload();
         } else {
           console.log('No data available');
         }
@@ -281,8 +290,10 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
-    imitateClick();
+    // imitateClick();
     window.location.reload();
+    renderMoviesCardsMarkup();
+
   }
   document.querySelector('.modal__close').addEventListener('click', closeModal);
   document.addEventListener('keyup', closeModal);
