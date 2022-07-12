@@ -11,7 +11,6 @@ function imitateClick() {
     document.querySelector('.queue').click();
   } else {
     const current_page = localStorage.getItem('current_page');
-    // console.log(document.querySelector("." + current_page));
     document.querySelector("." + current_page)?.click();
   }
 }
