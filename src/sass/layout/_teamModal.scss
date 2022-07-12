@@ -29,6 +29,7 @@ body.show-modal .modal {
 }
 
 .modal-team {
+    display: none;    
     position: relative;
     overflow: auto;
     max-height: 100vh;
