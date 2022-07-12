@@ -255,6 +255,7 @@ export default function createModal(data) {
       });
     instance.close();
   }
+  
   function removeFromWatched() {
     remove(ref(database, `users/${userId}/watchedMovies/${id}`));
     const dbRef = ref(getDatabase());
@@ -268,8 +269,7 @@ export default function createModal(data) {
           renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
-          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
-
+          localStorage.removeItem('watched');
           instance.close();
           renderMoviesCardsMarkup();
         }
@@ -281,6 +281,7 @@ export default function createModal(data) {
     renderMoviesCardsMarkup();
 
   }
+  
   function removeFromQueue() {
     remove(ref(database, `users/${userId}/queueOfMovies/${id}`));
     const dbRef = ref(getDatabase());
@@ -294,8 +295,7 @@ export default function createModal(data) {
           renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
-          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
-
+          localStorage.removeItem('queue');
           instance.close();
           renderMoviesCardsMarkup();
         }
