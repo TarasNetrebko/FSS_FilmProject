@@ -25,7 +25,7 @@ export default class Paginator {
                 e.preventDefault();
                 if (e.target.classList.contains('pagination__button-link')) {
                     this.page = parseInt(e.target.dataset.page);
-                    history.pushState(null, null, this.renderLinkPage(this.page));
+                    history.pushState(null, null, window.location.href);
                     document.dispatchEvent(new CustomEvent("changePage", {
                         detail: {
                             page: this.page
