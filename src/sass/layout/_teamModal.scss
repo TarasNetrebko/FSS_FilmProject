@@ -1,31 +1,28 @@
-
 body.show-modal .backdrop {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: initial;
-    
-    
+  opacity: 1;
+  visibility: visible;
+  pointer-events: initial;
 }
 body.show-modal .modal {
-    transform: scale(1);
+  transform: scale(1);
 }
 
 .backdrop {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
 
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
 }
 
 .modal-team {
@@ -49,81 +46,102 @@ body.show-modal .modal {
         max-width: 675px;
     }
 
+  @include tab() {
+    max-width: 675px;
+  }
 
-    @include desk() {
-        max-width: 1125px;
+  @include desk() {
+    max-width: 1000px;
+  }
 }
+
+.modal-team-box-img {
+  width: 195px;
+  height: 200px;
 }
 
 .modal-team-img {
-    width: 200px;
-    height: 240px;
-    margin-bottom: 10px;
-   
+  //   width: 200px;
+  //   height: 240px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  //   margin-bottom: 10px;
+}
+
+.modal-team-box-text {
+  padding: 15px;
+  box-shadow: 0px 0px 7px 1px rgba(136, 136, 136, 0.72);
+  -webkit-box-shadow: 0px 0px 7px 1px rgba(136, 136, 136, 0.72);
+  -moz-box-shadow: 0px 0px 7px 1px rgba(136, 136, 136, 0.72);
 }
 
 .modal-team-box {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .dark .modal-team {
-    background-color: var(--secondary-background-color-dark-theme);
+  background-color: var(--secondary-background-color-dark-theme);
 }
 .modal-team-box-two {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-top: 15px;
-    margin-right: 15px;
-    box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%), 0px 2px 1px rgb(0 0 0 / 20%);
-    border-radius: 0px 0px 4px 4px;
-    background-color: var(--secondary-background-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+  margin-right: 15px;
+  //   box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%),
+  //     0px 2px 1px rgb(0 0 0 / 20%);
+  border-radius: 0px 0px 4px 4px;
+  background-color: var(--secondary-background-color);
 }
 
 .dark .modal-team-box-two {
-    background-color: var(--primary-background-color-dark-theme);
-    color: var(--primary-font-color-dark-theme);
+  background-color: var(--primary-background-color-dark-theme);
+  color: var(--primary-font-color-dark-theme);
 }
 
 .modal-team-title {
-    text-align: center;
-    @include font(30px, 400, 1.2);
-    color: var(--primary-font-color);
+  text-align: center;
+  //   @include font(30px, 400, 1.2);
+  @include font(25px, 400, 1.2);
+  color: var(--primary-font-color);
 }
 
 .modal-team-article {
-    text-align: center;
-    @include font(35px, 500, 1.2);
-    color: var(--accent-color-btn);
+  text-align: center;
+  //   @include font(35px, 500, 1.2);
+  @include font(30px, 500, 1.2);
+  color: var(--accent-color-btn);
 }
 
 .dark .modal-team-article {
-    color: var(--accent-color-btn);
+  color: var(--accent-color-btn);
 }
 .dark .modal-team-title {
-    color: var(--primary-font-color-dark-theme);
+  color: var(--primary-font-color-dark-theme);
 }
 
 .modal-team-article-one {
-    @include font(18px, 500, 1.2);
-    text-align:center;
+  @include font(18px, 500, 1.2);
+  @include font(14px, 500, 1.2);
+  text-align: center;
 }
 .modal-team-article-two {
-    @include font(15px, 400, 1.2);
-    text-align: center;
-    margin-bottom: 10px;
-    color: var(--accent-color-btn);
+  //   @include font(15px, 400, 1.2);
+  @include font(14px, 300, 1.2);
+  text-align: center;
+  //   margin-bottom: 10px;
+  color: var(--accent-color-btn);
 }
 .modal-team-close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 .modal-team-icon {
-    stroke: rgb(0, 0, 0);
-    &:hover,
-        &:focus {
-            stroke: var(--primary-accent-color);
-        }
+  stroke: rgb(0, 0, 0);
+  &:hover,
+  &:focus {
+    stroke: var(--primary-accent-color);
+  }
 }
-
