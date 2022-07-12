@@ -7,6 +7,7 @@ const $refs = {
   form: document.querySelector('.header-form'),
   gallery: document.querySelector('.gallery'),
   errorMessage: document.querySelector('#message'),
+  searchInput: document.querySelector('[name="searchMovie"]'),
 };
 
 function loadMovies(response) {
@@ -20,10 +21,15 @@ function loadMovies(response) {
   }
 }
 
-// $refs.form.addEventListener('submit', onShowMovies);
+$refs.form.addEventListener('submit', event => {
+  event.preventDefault();
+
+  history.pushState(null, null, '/');
+  const query = $refs.searchInput.value.trim();
+  onShowMovies(query);
+});
 
 export function onShowMovies(query) {
-
   if (query === '') {
     $refs.errorMessage.classList.remove('visually-hidden');
   } else {
@@ -33,5 +39,5 @@ export function onShowMovies(query) {
     fetchFromBackend(fetchMovies, loadMovies);
   }
 
-  $refs.form.reset();
+  // $refs.form.reset();
 }

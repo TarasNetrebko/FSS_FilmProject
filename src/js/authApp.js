@@ -37,6 +37,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
+let userEmail;
 let userId;
 let watchedMovies;
 let moviesInQueue;
@@ -52,6 +53,7 @@ logOutBtn.addEventListener('click', logOut);
 onAuthStateChanged(auth, user => {
   if (user) {
     userId = user.uid;
+    userEmail = user.email;
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}/watchedMovies`))
       .then(async snapshot => {
@@ -104,6 +106,8 @@ export default function createModal(data) {
     vote_count,
   } = data.data;
   const poster_url = poster_path === null ? no_img : "https://image.tmdb.org/t/p/w500" + poster_path;
+  const film_genres = genres.length === 0 ? "No information" : genres .map(el => `${el.name}`) .join(', ');
+  const film_overview = overview.length === 0 ? "No overview." : overview;
   const instance = basicLightbox.create(
     `<div class="modal">
       <span class="modal__close">
@@ -135,25 +139,23 @@ export default function createModal(data) {
             </tr>
             <tr>
               <td>Genre</td>
-              <td class="modal__genre">${genres
-                .map(el => `${el.name}`)
-                .join(', ')}</td>
+              <td class="modal__genre">${film_genres}</td>
             </tr>
           </tbody>
         </table>
         <h3 class="modal__plot-title">About</h3>
-        <p class="modal__plot">${overview}</p>
+        <p class="modal__plot">${film_overview}</p>
         <div class="modal__button-wrapper">
-          <button id="watchedBtn" type="button" class="modal__button watched">
+          <button id="watchedBtn" type="button" class="modal__button watched visually-hidden">
             Add to watched
           </button>
-          <button id="queueBtn" type="button" class="modal__button queue">
+          <button id="queueBtn" type="button" class="modal__button queue visually-hidden">
             Add to queue
           </button>
-          <button id="removeFromWatchedBtn" type="button" class="modal__button watched">
+          <button id="removeFromWatchedBtn" type="button" class="modal__button watched visually-hidden">
             Remove from watched
           </button>
-          <button id="removeFromQueueBtn" type="button" class="modal__button queue">
+          <button id="removeFromQueueBtn" type="button" class="modal__button queue visually-hidden">
             Remove From queue
           </button>
         </div>
@@ -180,18 +182,16 @@ export default function createModal(data) {
   watchedBtn.addEventListener('click', addFilmToWatched);
   queueBtn.addEventListener('click', addFilmToQueue);
   // Experimental
-  queueBtn.classList.add('visually-hidden');
-  watchedBtn.classList.add('visually-hidden');
-  removeFromWatchedBtn.classList.add('visually-hidden');
-  removeFromQueueBtn.classList.add('visually-hidden');
   get(child(ref(getDatabase()), `users/${userId}/watchedMovies/${id}`))
     .then(snapshot => {
       if (userId) {
         if (snapshot.exists()) {
+          watchedBtn.classList.remove('visually-hidden');
           watchedBtn.classList.add('visually-hidden');
           removeFromWatchedBtn.classList.remove('visually-hidden');
         } else {
           watchedBtn.classList.remove('visually-hidden');
+          removeFromWatchedBtn.classList.remove('visually-hidden');
           removeFromWatchedBtn.classList.add('visually-hidden');
         }
       }
@@ -203,10 +203,12 @@ export default function createModal(data) {
     .then(snapshot => {
       if (userId) {
         if (snapshot.exists()) {
+          queueBtn.classList.remove('visually-hidden');
           queueBtn.classList.add('visually-hidden');
           removeFromQueueBtn.classList.remove('visually-hidden');
         } else {
           queueBtn.classList.remove('visually-hidden');
+          removeFromQueueBtn.classList.remove('visually-hidden');
           removeFromQueueBtn.classList.add('visually-hidden');
         }
       }
@@ -379,14 +381,15 @@ function signInModal() {
         logInBtn.classList.add('visually-hidden');
         signInBtn.classList.add('visually-hidden');
         logOutBtn.classList.remove('visually-hidden');
+        alert(`User: ${auth.currentUser.email} created!`);
         window.location.reload();
         // instance.close()
-        Notiflix.Notify.success(`User: ${auth.currentUser.email} created!`);
+        
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        Notiflix.Notify.failure('smth wrong!');
+        Notiflix.Notify.failure(error.message);
       });
   }
   document.querySelector('body').addEventListener('keydown', closeModal);
@@ -470,7 +473,7 @@ function logInModal() {
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert('wrong password');
+        Notiflix.Notify.failure(error.message);
       });
 
     document.querySelector('body').addEventListener('keydown', closeModal);
@@ -494,6 +497,7 @@ function logOut() {
       logInBtn.classList.remove('visually-hidden');
       signInBtn.classList.remove('visually-hidden');
       displayEmail.innerHTML = '';
+      userEmail = null;
       logOutBtn.classList.add('visually-hidden');
       document.querySelector('#nav-library').classList.add('visually-hidden');
     })
@@ -507,7 +511,7 @@ function logOut() {
 window.addEventListener('DOMContentLoaded', () => {
   get(child(ref(getDatabase()), `users/${userId}/online`))
     .then(snapshot => {
-      if (auth.currentUser.email) {
+      if (userEmail) {
         displayEmail.innerHTML = `${auth.currentUser.email.split('@')[0]}`;
         logInBtn.classList.add('visually-hidden');
         signInBtn.classList.add('visually-hidden');

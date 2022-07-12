@@ -62,8 +62,9 @@
   position: absolute;
   top: 10%;
   right: 0;
+  display: flex;
 
-  text-align: end;
+  text-align: end;  
   margin-bottom: 8px;
 }
 
@@ -255,4 +256,10 @@
   @include tab {
     margin-top: 20px;
   }
+}
+.login-element:not(:last-child) {
+  margin-right: 10px;
+}
+.login-element:nth-child(3) {
+  margin-right: 0;
 }

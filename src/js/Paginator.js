@@ -15,7 +15,28 @@ export default class Paginator {
         this.dataLength = dataLength;
 
         this.divPagination = document.querySelector('.pagination');
+        this.initEvents();
     }
+
+    initEvents() {
+        if (!window.calledOnce) {
+            window.calledOnce = true;
+            this.divPagination.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (e.target.classList.contains('pagination__button-link')) {
+                    this.page = parseInt(e.target.dataset.page);
+                    history.pushState(null, null, this.renderLinkPage(this.page));
+                    document.dispatchEvent(new CustomEvent("changePage", {
+                        detail: {
+                            page: this.page
+                        }
+                    }));
+                    this.render();
+                }
+            });
+        }
+    }
+
 
     static getCurrentPage() {
         const params = new URLSearchParams(window.location.search);
@@ -96,7 +117,7 @@ export default class Paginator {
 
     getBtnDefault(currentPage) {
         return `<li class="pagination__button" >
-        <a class="pagination__button-link" href="${this.renderLinkPage(currentPage)}">${currentPage}</a>
+        <a class="pagination__button-link" data-page="${currentPage}" href="${this.renderLinkPage(currentPage)}">${currentPage}</a>
     </li>`;
 
     }
@@ -104,14 +125,14 @@ export default class Paginator {
     getBtnOne() {
         const displayNoneClass = this.page !== 1 ? ' pagination__button--none' : '';
         return `<li class="pagination__button ${displayNoneClass}" >
-        <a class="pagination__button-link" href="${this.renderLinkPage(1)}">1</a>
+        <a class="pagination__button-link" data-page="1" href="${this.renderLinkPage(1)}">1</a>
     </li>`;
     }
 
     getBtnLast() {
         const displayNoneClass = this.page !== this.pageCount ? ' pagination__button--none' : '';
         return `<li class="pagination__button ${displayNoneClass}" >
-        <a class="pagination__button-link" href="${this.renderLinkPage(this.pageCount)}">${this.pageCount}</a>
+        <a class="pagination__button-link" data-page="${this.pageCount}" href="${this.renderLinkPage(this.pageCount)}">${this.pageCount}</a>
     </li>`;
     }
 
@@ -125,12 +146,14 @@ export default class Paginator {
         const nextPage = this.page + 1;
 
 
-        return ` <li class="pagination__button ${disabledClass} pagination__arrow-btn--right" >
-        <a class="pagination__button-link" href="${this.renderLinkPage(nextPage)}">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.33341 8H12.6667" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8.00008 12.6668L12.6667 8.00016L8.00008 3.3335" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        return ` <li class="pagination__button ${disabledClass} pagination__arrow-btn--right"  >
+        <a class="pagination__button-link" data-page="${nextPage}" href="${this.renderLinkPage(nextPage)}">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+<path d="M3.33329 8H12.6666" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.99996 12.6668L12.6666 8.00016L7.99996 3.3335" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+
         </a>
 
       </li>`;
@@ -141,18 +164,18 @@ export default class Paginator {
         const disabledClass = this.page <= 1 ? ' pagination__button--disabled' : '';
         const prevPage = this.page - 1;
         return `  <li class="pagination__button pagination__arrow-btn--left ${disabledClass}">
-        <a class="pagination__button-link" href="${this.renderLinkPage(prevPage)}">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.6667 8H3.33337" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8.00004 12.6668L3.33337 8.00016L8.00004 3.3335" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <a class="pagination__button-link" data-page="${prevPage}" href="${this.renderLinkPage(prevPage)}">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.6667 8H3.33337" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.00004 12.6668L3.33337 8.00016L8.00004 3.3335" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+</svg> 
         </a>
       </li>`;
     }
 
     getBtnDot(page) {
         return `<li class="pagination__button pagination__button-dots">
-        <a class="pagination__button-link " href="${this.renderLinkPage(page)}">...</a>
+        <a class="pagination__button-link " data-page="${page}"  href="${this.renderLinkPage(page)}">...</a>
       </li>`;
     }
 
@@ -161,8 +184,9 @@ export default class Paginator {
 
         const params = new URLSearchParams(window.location.search);
         params.delete('page');
-        params.append('page', page);
-
+        if (page > 1) {
+            params.append('page', page);
+        }
         return `${window.location.pathname}?${params.toString()}`;
     }
 }

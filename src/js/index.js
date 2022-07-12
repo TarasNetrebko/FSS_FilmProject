@@ -9,3 +9,4 @@ import { toggleStatus } from "../js/themesToggle";
 // paginator.render();
 
 toggleStatus();
+

@@ -3,9 +3,11 @@
     display: flex;
     /* align-items: center; */
     justify-content: center;
-    padding-bottom: 50px;
+    padding-bottom: 40px;
     // час прийшов
-
+    @include tab {
+        padding-bottom: 60px;
+    }
     &__button {
             background-color: #fff;
             justify-content: center;
@@ -97,6 +99,12 @@
     width: 14px;
     height: 16px;
     fill: #000000;
+}
+
+.pagination__button-link svg{
+    pointer-events: none;
+    width: 16px;
+        height: 16px;
 }
 
 /* .arrow {
