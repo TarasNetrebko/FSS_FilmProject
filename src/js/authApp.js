@@ -533,6 +533,7 @@ function logOut() {
   localStorage.removeItem('queue');
   localStorage.removeItem('watched');
   localStorage.removeItem('current_page');
+  window.location.replace('../index.html');
 }
 window.addEventListener('DOMContentLoaded', () => {
   get(child(ref(getDatabase()), `users/${userId}/online`))
