@@ -19,17 +19,10 @@
     background-color: var(--primary-background-color-dark-theme);
   }
 
-  .card {
+  .card, .cardlib {
     margin: 0px auto 20px;
     display: flex;
     flex-direction: column;
-    margin-left: 0px;
-  }
-  .cardLib{
-    margin: 0px auto 20px;
-    display: flex;
-    flex-direction: column;
-    margin-left: 0px;
   }
 
   .card__image {
@@ -66,25 +59,17 @@
     // margin: 0 -8px;
   }
 
-  .card {
+  .card, .cardlib {
     margin-bottom: 32px;
     // width: 50%;
     // padding: 0 8px;
     width: calc((100% - 32px) / 2);
     margin-right: 32px;
+    margin-left: 0px;
 
 
   }
 
-  .cardLib{
-    margin-bottom: 32px;
-    // width: 50%;
-    // padding: 0 8px;
-    width: calc((100% - 32px) / 2);
-    margin-right: 32px;
-
-
-  }
 
   .card__image {
     margin-bottom: 10px;
@@ -107,7 +92,7 @@
   .card:nth-child(2n + 2) {
     margin-right: 0px;
   }
-  .cardLib:nth-child(2n + 2) {
+  .cardlib:nth-child(2n + 2) {
     margin-right: 0px;
   }
 }
@@ -120,7 +105,7 @@
     justify-content: start;
   }
 
-  .card {
+  .card, .cardlib {
     margin-bottom: 32px;
     // margin-left: 0;
     // margin-right: 0;
@@ -132,16 +117,9 @@
   .card:nth-child(3n + 3) {
     margin-right: 0px;
   }
-  .cardLib{
-    margin-bottom: 32px;
-    // margin-left: 0;
-    // margin-right: 0;
-    // width: calc(100% / 3);
-    width: calc((100% - 32px) / 3);
-    margin-right: 16px;
-  }
 
-  .cardLib:nth-child(3n + 3) {
+
+  .cardlib:nth-child(3n + 3) {
     margin-right: 0px;
   }
   .card__image {

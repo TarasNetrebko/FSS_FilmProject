@@ -59,15 +59,15 @@ export default function renderMoviesCardsMarkup() {
         const film_date = release_date
           ? release_date.split('-')[0]
           : 'Release year unknown';
-        const film_genres = genres.map(el => ' ' + el.name);
-        if (!film_genres) {
-          film_genres = 'No information';
-        }
-        return `<article class="cardLib" data-id="${id}">
+          const film_genres =
+          genres.length === 0
+            ? 'No information'
+            : genres.map(el => `${el.name}`).join(', ');
+          return `<article class="cardlib" data-id="${id}">
                 <img
                   class="card__image"
                   loading="lazy"
-                  src="https://image.tmdb.org/t/p/w500${poster_url}"
+                  src="${poster_url}"
                   alt="${original_title} movie poster"
                 />
                 <p class="card__title">${original_title}</p>
@@ -80,7 +80,7 @@ export default function renderMoviesCardsMarkup() {
     document
       .querySelector('.gallery.library')
       ?.insertAdjacentHTML('beforeend', markup);
-    document.querySelectorAll('.cardLib').forEach(el => {
+    document.querySelectorAll('.cardlib').forEach(el => {
       el.addEventListener('click', event => {
         const movieId = Number(event.currentTarget.dataset.id);
         const filmObject = {};
