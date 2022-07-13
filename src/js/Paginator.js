@@ -148,9 +148,9 @@ export default class Paginator {
 
         return ` <li class="pagination__button ${disabledClass} pagination__arrow-btn--right"  >
         <a class="pagination__button-link" data-page="${nextPage}" href="${this.renderLinkPage(nextPage)}">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-<path d="M3.33329 8H12.6666" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.99996 12.6668L12.6666 8.00016L7.99996 3.3335" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+<svg class="pagination__arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+<path d="M3.33329 8H12.6666" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.99996 12.6668L12.6666 8.00016L7.99996 3.3335" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 
 
@@ -165,9 +165,9 @@ export default class Paginator {
         const prevPage = this.page - 1;
         return `  <li class="pagination__button pagination__arrow-btn--left ${disabledClass}">
         <a class="pagination__button-link" data-page="${prevPage}" href="${this.renderLinkPage(prevPage)}">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12.6667 8H3.33337" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M8.00004 12.6668L3.33337 8.00016L8.00004 3.3335" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+          <svg class="pagination__arrow"  width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.6667 8H3.33337" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8.00004 12.6668L3.33337 8.00016L8.00004 3.3335" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
 </svg> 
         </a>
       </li>`;

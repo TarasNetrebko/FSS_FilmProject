@@ -145,3 +145,11 @@ body.show-modal .modal {
     stroke: var(--primary-accent-color);
   }
 }
+
+.dark .modal-team-icon {
+    stroke: var(--primary-font-color-dark-theme);
+    &:hover,
+        &:focus {
+            stroke: var(--primary-accent-color);
+        }
+}
