@@ -2,49 +2,56 @@ import createModal from './authApp';
 import * as basicLightbox from 'basiclightbox';
 import { userId } from './authApp';
 
-document.addEventListener("DOMContentLoaded", event => {
-  document.querySelectorAll('.header-library__btn').forEach(el => el.addEventListener("click", renderLibrary));
-  imitateClick();  
-})
+document.addEventListener('DOMContentLoaded', event => {
+  document
+    .querySelectorAll('.header-library__btn')
+    .forEach(el => el.addEventListener('click', renderLibrary));
+  imitateClick();
+});
 
 function imitateClick() {
   if (!localStorage.getItem('current_page')) {
     document.querySelector('.queue').click();
   } else {
     const current_page = localStorage.getItem('current_page');
-    document.querySelector("." + current_page)?.click();
+    document.querySelector('.' + current_page)?.click();
   }
 }
 
 function renderLibrary(event) {
   const buttonEl = event.currentTarget;
-  if (buttonEl.textContent.trim() === "Queue") {
-    document.querySelector('.queue').classList.add("active");
-    document.querySelector('.watched').classList.remove("active");
-    localStorage.setItem("current_page", "queue");
+  if (buttonEl.textContent.trim() === 'Queue') {
+    document.querySelector('.queue').classList.add('active');
+    document.querySelector('.watched').classList.remove('active');
+    localStorage.setItem('current_page', 'queue');
     renderMoviesCardsMarkup();
   } else {
-    document.querySelector('.queue').classList.remove("active");
-    document.querySelector('.watched').classList.add("active");
+    document.querySelector('.queue').classList.remove('active');
+    document.querySelector('.watched').classList.add('active');
     // document.querySelector('.gallery').innerHTML = '';
-    localStorage.setItem("current_page", "watched");
+    localStorage.setItem('current_page', 'watched');
     renderMoviesCardsMarkup();
   }
 }
 
 export default function renderMoviesCardsMarkup() {
   const current_page = localStorage.getItem('current_page');
-  const array = (JSON.parse(localStorage.getItem(current_page)))?.map(el => JSON.parse(el));
+  const array = JSON.parse(localStorage.getItem(current_page))?.map(el =>
+    JSON.parse(el)
+  );
   if (document.querySelector('.gallery.library')) {
-      document.querySelector('.gallery.library').innerHTML = '';
+    document.querySelector('.gallery.library').innerHTML = '';
   }
 
   if (!array) {
-    document.querySelector('.gallery').innerHTML = `<h2 class="message">Sorry! Here is no movies!
+    document.querySelector(
+      '.gallery.library'
+    ).innerHTML = `<h2 class="message">Sorry! Here is no movies!
   You can choose them <a class="message__link" href="index.html">here</a> !</h2>`;
   } else {
-    const markup = array?.map(({ id, poster_path, genres, original_title, release_date }) => {
-      return `<article class="card" data-id="${id}">
+    const markup = array
+      ?.map(({ id, poster_path, genres, original_title, release_date }) => {
+        return `<article class="card" data-id="${id}">
                 <img
                   class="card__image"
                   loading="lazy"
@@ -53,10 +60,16 @@ export default function renderMoviesCardsMarkup() {
                 />
                 <p class="card__title">${original_title}</p>
                 <p class="card__genres">
-                ${genres.map(el => " " + el.name)} | <span class="card__year">${release_date.split('-')[0]}</span>
+                ${genres.map(el => ' ' + el.name)} | <span class="card__year">${
+          release_date.split('-')[0]
+        }</span>
                 </p>
-              </article>`}).join('');
-    document.querySelector('.gallery.library')?.insertAdjacentHTML('beforeend', markup);
+              </article>`;
+      })
+      .join('');
+    document
+      .querySelector('.gallery.library')
+      ?.insertAdjacentHTML('beforeend', markup);
     document.querySelectorAll('.card').forEach(el => {
       el.addEventListener('click', event => {
         const movieId = Number(event.currentTarget.dataset.id);
@@ -68,4 +81,3 @@ export default function renderMoviesCardsMarkup() {
     });
   }
 }
-
