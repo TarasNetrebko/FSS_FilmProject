@@ -1,6 +1,7 @@
 import createModal from './authApp';
 import * as basicLightbox from 'basiclightbox';
 import { userId } from './authApp';
+import no_img from '../images/blank-wanted-poster.jpg';
 
 document.addEventListener('DOMContentLoaded', event => {
   document
