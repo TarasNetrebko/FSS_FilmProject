@@ -257,11 +257,13 @@ export default function createModal(data) {
           renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
+          renderMoviesCardsMarkup();
         }
       })
       .catch(error => {
         console.error(error);
       });
+    renderMoviesCardsMarkup();
   }
   function addFilmToQueue() {
     set(
@@ -298,11 +300,13 @@ export default function createModal(data) {
           renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
+          renderMoviesCardsMarkup();
         }
       })
       .catch(error => {
         console.error(error);
       });
+    renderMoviesCardsMarkup();
   }
 
   function removeFromWatched() {
