@@ -23,7 +23,6 @@ import Notiflix, { Notify } from 'notiflix';
 import renderMoviesCardsMarkup from './my-library';
 import no_img from '../images/blank-wanted-poster.jpg';
 
-
 const firebaseConfig = {
   apiKey: 'AIzaSyB4RYBFTyES81mms8M7OWMBEbyDzsl2aDQ',
   authDomain: 'auth-app-16518.firebaseapp.com',
@@ -60,13 +59,15 @@ onAuthStateChanged(auth, user => {
       .then(async snapshot => {
         if (snapshot.exists()) {
           watchedMovies = await snapshot.val();
-          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
+          localStorage.setItem(
+            'watched',
+            JSON.stringify(Object.values(watchedMovies))
+          );
 
           renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
           localStorage.removeItem('watched');
-
         }
       })
       .catch(error => {
@@ -77,7 +78,10 @@ onAuthStateChanged(auth, user => {
         if (snapshot.exists()) {
           moviesInQueue = await snapshot.val();
           // Experiment
-          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
+          localStorage.setItem(
+            'queue',
+            JSON.stringify(Object.values(moviesInQueue))
+          );
         } else {
           console.log('No data available');
           localStorage.removeItem('queue');
@@ -102,9 +106,15 @@ export default function createModal(data) {
     vote_average,
     vote_count,
   } = data.data;
-  const poster_url = poster_path === null ? no_img : "https://image.tmdb.org/t/p/w500" + poster_path;
-  const film_genres = genres.length === 0 ? "No information" : genres .map(el => `${el.name}`) .join(', ');
-  const film_overview = overview.length === 0 ? "No overview." : overview;
+  const poster_url =
+    poster_path === null
+      ? no_img
+      : 'https://image.tmdb.org/t/p/w500' + poster_path;
+  const film_genres =
+    genres.length === 0
+      ? 'No information'
+      : genres.map(el => `${el.name}`).join(', ');
+  const film_overview = overview.length === 0 ? 'No overview.' : overview;
   const instance = basicLightbox.create(
     `<div class="modal">
       <span class="modal__close">
@@ -223,8 +233,10 @@ export default function createModal(data) {
       .then(async snapshot => {
         if (snapshot.exists()) {
           watchedMovies = await snapshot.val();
-          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
-
+          localStorage.setItem(
+            'watched',
+            JSON.stringify(Object.values(watchedMovies))
+          );
         } else {
           console.log('No data available');
         }
@@ -245,7 +257,10 @@ export default function createModal(data) {
         if (snapshot.exists()) {
           // console.log(snapshot.val());
           moviesInQueue = await snapshot.val();
-          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
+          localStorage.setItem(
+            'queue',
+            JSON.stringify(Object.values(moviesInQueue))
+          );
         } else {
           console.log('No data available');
         }
@@ -255,7 +270,7 @@ export default function createModal(data) {
       });
     instance.close();
   }
-  
+
   function removeFromWatched() {
     remove(ref(database, `users/${userId}/watchedMovies/${id}`));
     const dbRef = ref(getDatabase());
@@ -264,7 +279,10 @@ export default function createModal(data) {
         if (snapshot.exists()) {
           // console.log(snapshot.val());
           watchedMovies = await snapshot.val();
-          localStorage.setItem('watched', JSON.stringify(Object.values(watchedMovies)));
+          localStorage.setItem(
+            'watched',
+            JSON.stringify(Object.values(watchedMovies))
+          );
           instance.close();
           renderMoviesCardsMarkup();
         } else {
@@ -277,11 +295,10 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
-    
-    renderMoviesCardsMarkup();
 
+    renderMoviesCardsMarkup();
   }
-  
+
   function removeFromQueue() {
     remove(ref(database, `users/${userId}/queueOfMovies/${id}`));
     const dbRef = ref(getDatabase());
@@ -290,7 +307,10 @@ export default function createModal(data) {
         if (snapshot.exists()) {
           // console.log(snapshot.val());
           moviesInQueue = await snapshot.val();
-          localStorage.setItem('queue', JSON.stringify(Object.values(moviesInQueue)));
+          localStorage.setItem(
+            'queue',
+            JSON.stringify(Object.values(moviesInQueue))
+          );
           instance.close();
           renderMoviesCardsMarkup();
         } else {
@@ -304,7 +324,6 @@ export default function createModal(data) {
         console.error(error);
       });
     renderMoviesCardsMarkup();
-
   }
   document.querySelector('.modal__close').addEventListener('click', closeModal);
   document.addEventListener('keyup', closeModal);
@@ -313,7 +332,6 @@ export default function createModal(data) {
       event.key === 'Escape' ||
       event.currentTarget.classList.contains('modal__close')
     ) {
-      instance.closable;
       document.querySelector('body').style.overflow = 'auto';
       instance.close();
       document.removeEventListener('keyup', closeModal);
@@ -393,7 +411,6 @@ function signInModal() {
         alert(`User: ${auth.currentUser.email} created!`);
         window.location.reload();
         // instance.close()
-        
       })
       .catch(error => {
         const errorCode = error.code;
