@@ -237,6 +237,23 @@ export default function createModal(data) {
             'watched',
             JSON.stringify(Object.values(watchedMovies))
           );
+          get(child(ref(getDatabase()), `users/${userId}/watchedMovies/${id}`))
+            .then(snapshot => {
+              if (userId) {
+                if (snapshot.exists()) {
+                  watchedBtn.classList.remove('visually-hidden');
+                  watchedBtn.classList.add('visually-hidden');
+                  removeFromWatchedBtn.classList.remove('visually-hidden');
+                } else {
+                  watchedBtn.classList.remove('visually-hidden');
+                  removeFromWatchedBtn.classList.remove('visually-hidden');
+                  removeFromWatchedBtn.classList.add('visually-hidden');
+                }
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            });
         } else {
           console.log('No data available');
         }
@@ -244,7 +261,6 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
-    instance.close();
   }
   function addFilmToQueue() {
     set(
@@ -261,6 +277,23 @@ export default function createModal(data) {
             'queue',
             JSON.stringify(Object.values(moviesInQueue))
           );
+          get(child(ref(getDatabase()), `users/${userId}/queueOfMovies/${id}`))
+            .then(snapshot => {
+              if (userId) {
+                if (snapshot.exists()) {
+                  queueBtn.classList.remove('visually-hidden');
+                  queueBtn.classList.add('visually-hidden');
+                  removeFromQueueBtn.classList.remove('visually-hidden');
+                } else {
+                  queueBtn.classList.remove('visually-hidden');
+                  removeFromQueueBtn.classList.remove('visually-hidden');
+                  removeFromQueueBtn.classList.add('visually-hidden');
+                }
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            });
         } else {
           console.log('No data available');
         }
@@ -268,7 +301,6 @@ export default function createModal(data) {
       .catch(error => {
         console.error(error);
       });
-    instance.close();
   }
 
   function removeFromWatched() {
@@ -283,7 +315,23 @@ export default function createModal(data) {
             'watched',
             JSON.stringify(Object.values(watchedMovies))
           );
-          instance.close();
+          get(child(ref(getDatabase()), `users/${userId}/watchedMovies/${id}`))
+            .then(snapshot => {
+              if (userId) {
+                if (snapshot.exists()) {
+                  watchedBtn.classList.remove('visually-hidden');
+                  watchedBtn.classList.add('visually-hidden');
+                  removeFromWatchedBtn.classList.remove('visually-hidden');
+                } else {
+                  watchedBtn.classList.remove('visually-hidden');
+                  removeFromWatchedBtn.classList.remove('visually-hidden');
+                  removeFromWatchedBtn.classList.add('visually-hidden');
+                }
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            });
           renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
@@ -311,7 +359,23 @@ export default function createModal(data) {
             'queue',
             JSON.stringify(Object.values(moviesInQueue))
           );
-          instance.close();
+          get(child(ref(getDatabase()), `users/${userId}/queueOfMovies/${id}`))
+            .then(snapshot => {
+              if (userId) {
+                if (snapshot.exists()) {
+                  queueBtn.classList.remove('visually-hidden');
+                  queueBtn.classList.add('visually-hidden');
+                  removeFromQueueBtn.classList.remove('visually-hidden');
+                } else {
+                  queueBtn.classList.remove('visually-hidden');
+                  removeFromQueueBtn.classList.remove('visually-hidden');
+                  removeFromQueueBtn.classList.add('visually-hidden');
+                }
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            });
           renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
