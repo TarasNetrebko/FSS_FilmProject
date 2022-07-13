@@ -254,6 +254,7 @@ export default function createModal(data) {
             .catch(error => {
               console.error(error);
             });
+          renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
         }
@@ -294,6 +295,7 @@ export default function createModal(data) {
             .catch(error => {
               console.error(error);
             });
+          renderMoviesCardsMarkup();
         } else {
           console.log('No data available');
         }
