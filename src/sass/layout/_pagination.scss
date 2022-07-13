@@ -46,6 +46,8 @@
     }
 }
 
+
+
          &:hover {
     box-shadow: #ff6b08 0px 0px 0px 1px;
     // opacity: 0.2;
@@ -113,3 +115,14 @@
   height: 16px;
   fill: #000000;
 } */
+.dark .pagination__button {
+    background-color: var(--secondary-background-color-dark-theme);
+}
+
+.dark .pagination__active-btn {
+    background: #ff6b08;
+}
+
+.dark .pagination__button-link {
+    color: var(--secondary-font-color-dark-theme);
+}
