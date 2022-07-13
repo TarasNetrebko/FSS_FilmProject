@@ -6,7 +6,7 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
-    min-height: 65vh;
+    min-height: 100vh;
   }
 
   .gallery {
@@ -55,7 +55,7 @@
 
 @media screen and (min-width: 768px) {
     .main {
-      min-height: 75vh;
+      min-height: 100vh;
     }
     .gallery {
     //width: unset;
@@ -114,7 +114,7 @@
 
 @media screen and (min-width: 1280px) {
   .main {
-      min-height: 70vh;
+      min-height: 100vh;
     }
   .gallery {
     justify-content: start;
