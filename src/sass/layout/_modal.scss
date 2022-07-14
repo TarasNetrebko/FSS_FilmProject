@@ -17,10 +17,12 @@
     font-size: 12px;
     line-height: 14px;
     background: #fff;
+    border-radius: 5px;
   }
 
   .dark .modal {
     background-color: var(--secondary-background-color-dark-theme);
+    box-shadow: 0px 0px 5px rgba(245, 245, 245, 0.747), 0px 0px 50px rgba(255, 255, 255, 0.836);
   }
 
   .modal__close {
