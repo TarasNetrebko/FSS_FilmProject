@@ -1,6 +1,7 @@
 .container.header-library {
   max-width: 100%;
   height: 230px;
+  min-width: 100%;
 
   background-image: url('/src/images/header-library320.jpg');
   background-color: var(--background-backout);
